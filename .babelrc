@@ -8,12 +8,13 @@
         "alias": {
           "@components": "./src/components",
           "@themes": "./src/themes",
+          "@navigator": "./src/navigator",
           "@screens": "./src/screens",
           "@stores": "./src/stores",
           "@utils": "./src/utils",
           "@services": "./src/services",
-          "@assets": "./assets",
-          "@constants": "./src/constants"
+          "@constants": "./src/constants",
+          "@assets": "./assets"
         }
       }
     ]
