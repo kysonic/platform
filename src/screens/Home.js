@@ -6,7 +6,7 @@ const HomeScreen = ({navigation: {navigate}}) => {
         <Container>
             <Content>
                 <Text>
-                    This is Content Section
+                    Really!
                 </Text>
             </Content>
             <Footer>
@@ -20,20 +20,22 @@ const HomeScreen = ({navigation: {navigate}}) => {
     );
 };
 
-HomeScreen.navigatorOptions = {
-    header: () => (
-        <Header>
-            <Left>
-                <Button transparent>
-                    <Icon name='menu'/>
-                </Button>
-            </Left>
-            <Body>
-                <Title>Header</Title>
-            </Body>
-            <Right/>
-        </Header>
-    )
-}
+HomeScreen.navigationOptions = ({navigation}) => (
+    {
+        header: () => (
+            <Header>
+                <Left>
+                    <Button transparent>
+                        <Icon name='menu'/>
+                    </Button>
+                </Left>
+                <Body>
+                    <Title>Header</Title>
+                </Body>
+                <Right/>
+            </Header>
+        )
+    }
+);
 
 export default HomeScreen;
