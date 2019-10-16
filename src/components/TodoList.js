@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Text, Button} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import {useObserver} from 'mobx-react-lite';
 import {TodoList as TodoListStore} from '@stores/todos';
+import {Form, Item, Label, Input, Text, Button} from 'native-base';
 
 const todoStore = TodoListStore();
 
@@ -9,12 +10,15 @@ const TodoList = (props) => {
     const [text, setText] = useState('');
     return useObserver(() => (
         <View>
-            <View style={styles.controls}>
-                <TextInput value={text} onChangeText={text => setText(text)} label='Todo' />
-                <Button title="Add" style={styles.button} onPress={() => {todoStore.create(text); setText('')}}>
+            <Form>
+                <Item floatingLabel>
+                    <Label>Todo Text</Label>
+                    <Input value={text} onChangeText={text => setText(text)} />
+                </Item>
+                <Button primary style={styles.button} onPress={() => {todoStore.create(text); setText('')}}>
                     <Text>Yoga Node</Text>
                 </Button>
-            </View>
+            </Form>
             <View style={styles.list}>
                 {Array.from(todoStore.todos).map((todo) => (
                     <View key={todo.text} style={styles.todo}>
@@ -29,7 +33,8 @@ const TodoList = (props) => {
 
 const styles = StyleSheet.create({
     button: {
-        marginTop: 10
+        marginTop: 10,
+        textAlign: 'center'
     },
     controls: {
 
