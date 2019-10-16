@@ -1,13 +1,12 @@
 import React from 'react';
 import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text} from 'native-base';
+import TodoList from '@components/TodoList';
 
 const HomeScreen = ({navigation: {navigate}}) => {
     return (
         <Container>
             <Content>
-                <Text>
-                    Really!
-                </Text>
+                <TodoList />
             </Content>
             <Footer>
                 <FooterTab>
