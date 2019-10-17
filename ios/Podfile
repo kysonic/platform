@@ -1,6 +1,13 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+post_install do |installer|
+  rnfirebase = installer.pods_project.targets.find { |target| target.name == 'RNFirebase' }
+  rnfirebase.build_configurations.each do |config|
+    config.build_settings['HEADER_SEARCH_PATHS'] = '$(inherited) ${PODS_ROOT}/Headers/Public/**'
+  end
+end
+
 target 'trash' do
   # Pods for trash
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
@@ -33,6 +40,14 @@ target 'trash' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Core', '~> 6.3.0'
+
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Core', '~> 6.3.0'
+  pod 'Firebase/Auth', '~> 6.3.0'
 
   target 'trashTests' do
     inherit! :search_paths

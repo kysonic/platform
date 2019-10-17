@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "972344367086",
+    "firebase_url": "https://trash-50e7a.firebaseio.com",
+    "project_id": "trash-50e7a",
+    "storage_bucket": "trash-50e7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972344367086:android:ff954e48a7b54b42c6a0ff",
+        "android_client_info": {
+          "package_name": "com.cdc.trash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972344367086-b2a4pm882msqvsia5a52fcieu5qibktd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApjHTLIccJWTirqOo7DFC2wbfWguvG01o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972344367086-b2a4pm882msqvsia5a52fcieu5qibktd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
