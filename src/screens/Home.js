@@ -1,5 +1,18 @@
 import React from 'react';
-import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text} from 'native-base';
+import {
+    Container,
+    Header,
+    Title,
+    Content,
+    Footer,
+    FooterTab,
+    Button,
+    Left,
+    Right,
+    Body,
+    Icon,
+    Text
+} from 'native-base';
 import TodoList from '@components/TodoList';
 import firebase from 'react-native-firebase';
 
@@ -14,7 +27,7 @@ const HomeScreen = ({navigation: {navigate}}) => {
     return (
         <Container>
             <Content>
-                <TodoList />
+                <TodoList/>
             </Content>
             <Footer>
                 <FooterTab>
