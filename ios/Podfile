@@ -48,6 +48,7 @@ target 'trash' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Core', '~> 6.3.0'
   pod 'Firebase/Auth', '~> 6.3.0'
+  pod 'Firebase/Database', '~> 6.3.0'
 
   target 'trashTests' do
     inherit! :search_paths

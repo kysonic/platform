@@ -17,17 +17,14 @@ import TodoList from '@components/TodoList';
 import firebase from 'react-native-firebase';
 
 const HomeScreen = ({navigation: {navigate}}) => {
-    firebase.auth()
-        .signInAnonymously()
-        .then(credential => {
-            if (credential) {
-                console.log('default app user ->', credential.user.toJSON());
-            }
-        });
+    console.log(firebase.database.nativeModuleExists);
     return (
         <Container>
             <Content>
                 <TodoList/>
+                <Text>List of available features</Text>
+                <Text>{firebase.database.nativeModuleExists && 'database'}</Text>
+                <Text>{firebase.auth.nativeModuleExists && 'auth'}</Text>
             </Content>
             <Footer>
                 <FooterTab>
