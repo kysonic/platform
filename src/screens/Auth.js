@@ -13,7 +13,7 @@ const AuthScreen = (props) => {
                     <Item>
                         <Input placeholder="Password" />
                     </Item>
-                    <Button style={styles.button}>
+                    <Button block style={styles.button}>
                         <Text>Sign in</Text>
                     </Button>
                 </Form>

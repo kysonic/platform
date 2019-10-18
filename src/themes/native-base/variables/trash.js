@@ -123,7 +123,7 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: '#8588b5',
+  brandPrimary: '#2cb56f',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
