@@ -17,7 +17,6 @@ import TodoList from '@components/TodoList';
 import firebase from 'react-native-firebase';
 
 const HomeScreen = ({navigation: {navigate}}) => {
-    console.log(firebase.database.nativeModuleExists);
     return (
         <Container>
             <Content>
