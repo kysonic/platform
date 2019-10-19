@@ -26,6 +26,7 @@
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^3.2.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",

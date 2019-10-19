@@ -227,14 +227,13 @@ export default (variables /* : * */ = variable) => {
     },
 
     borderWidth: variables.borderWidth * 2,
-    borderTopWidth: 0,
-    borderRightWidth: 0,
     borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
     borderColor: variables.inputBorderColor,
     backgroundColor: 'transparent',
     flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 2
+    alignItems: 'center'
   };
 
   return itemTheme;

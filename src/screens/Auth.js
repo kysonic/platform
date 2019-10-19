@@ -1,36 +1,24 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {Container, Content, Item, Input, Form, Button, Text, Header, Left, Icon, Body, Title, Right} from 'native-base';
+import AuthForm from '@components/Auth/AuthForm';
+import {Button, Header, Left, Icon, Body, Title, Right} from 'native-base';
+import {View, StyleSheet} from 'react-native';
 
 const AuthScreen = (props) => {
     return (
-        <Container>
-            <Content>
-                <Form style={styles.form}>
-                    <Item style={styles.item}>
-                        <Input placeholder="Email" />
-                    </Item>
-                    <Item>
-                        <Input placeholder="Password" />
-                    </Item>
-                    <Button block style={styles.button}>
-                        <Text>Sign in</Text>
-                    </Button>
-                </Form>
-            </Content>
-        </Container>
+        <View style={styles.container}>
+            <AuthForm style={styles.form} />
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+    },
     form: {
-        padding: 10
-    },
-    item: {
-        marginTop: 10
-    },
-    button: {
-        marginTop: 20
+        position: 'relative',
+        bottom: 50
     }
 });
 
@@ -38,11 +26,6 @@ AuthScreen.navigationOptions = ({navigation}) => (
     {
         header: () => (
             <Header>
-                <Left>
-                    <Button transparent>
-                        <Icon name='menu'/>
-                    </Button>
-                </Left>
                 <Body>
                     <Title>Trash | Sign in</Title>
                 </Body>
