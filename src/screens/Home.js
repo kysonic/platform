@@ -1,20 +1,8 @@
 import React from 'react';
-import {
-    Container,
-    Header,
-    Title,
-    Content,
-    Footer,
-    FooterTab,
-    Button,
-    Left,
-    Right,
-    Body,
-    Icon,
-    Text
-} from 'native-base';
-import TodoList from '@components/TodoList';
+import {Container, Content, Footer, FooterTab, Button, Text} from 'native-base';
+import TodoList from '@components/demo/TodoList';
 import firebase from 'react-native-firebase';
+import {ConnectHeader} from '@utils/navigation';
 
 const HomeScreen = ({navigation: {navigate}}) => {
     return (
@@ -36,22 +24,6 @@ const HomeScreen = ({navigation: {navigate}}) => {
     );
 };
 
-HomeScreen.navigationOptions = ({navigation}) => (
-    {
-        header: () => (
-            <Header>
-                <Left>
-                    <Button transparent>
-                        <Icon name='menu'/>
-                    </Button>
-                </Left>
-                <Body>
-                    <Title>Header</Title>
-                </Body>
-                <Right/>
-            </Header>
-        )
-    }
-);
+ConnectHeader(HomeScreen);
 
 export default HomeScreen;

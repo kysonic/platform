@@ -1,7 +1,7 @@
 import React from 'react';
-import AuthForm from '@components/Auth/AuthForm';
-import {Button, Header, Left, Icon, Body, Title, Right} from 'native-base';
 import {View, StyleSheet} from 'react-native';
+import AuthForm from '@components/auth/AuthForm';
+import {ConnectHeader} from '@utils/navigation';
 
 const AuthScreen = (props) => {
     return (
@@ -14,25 +14,14 @@ const AuthScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     form: {
         position: 'relative',
-        bottom: 50
-    }
+        bottom: 50,
+    },
 });
 
-AuthScreen.navigationOptions = ({navigation}) => (
-    {
-        header: () => (
-            <Header>
-                <Body>
-                    <Title>Trash | Sign in</Title>
-                </Body>
-                <Right/>
-            </Header>
-        )
-    }
-);
+ConnectHeader(AuthScreen);
 
 export default AuthScreen;

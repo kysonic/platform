@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useObserver} from 'mobx-react-lite';
-import {TodoList as TodoListStore} from '@stores/todos';
+import {TodoList as TodoListStore} from '@stores/demo/todos';
 import {Form, Item, Label, Input, Text, Button} from 'native-base';
 
 const todoStore = TodoListStore();
