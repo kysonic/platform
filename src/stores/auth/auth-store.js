@@ -1,10 +1,11 @@
 // @flow
-import {observable, computed, flow, decorate} from 'mobx';
+import {observable, computed, flow, decorate, action} from 'mobx';
 import {auth} from 'react-native-firebase';
 
 function AuthStore() {
     const store = {
         user: null,
+        error: null,
         isLoading: false,
 
         get isAuth() {
@@ -17,8 +18,8 @@ function AuthStore() {
                 const response = yield auth().createUserWithEmailAndPassword(email, password);
                 this.user = response.user?._user;
             } catch (err) {
-                console.error(err);
-                throw err;
+                console.log(err);
+                this.error = err;
             }
             this.isLoading = false;
         }),
@@ -27,19 +28,28 @@ function AuthStore() {
             this.isLoading = true;
             try {
                 const response = yield auth().signInWithEmailAndPassword(email, password);
+                console.log(response);
                 this.user = response.user?._user;
             } catch (err) {
-                console.error(err);
-                throw err;
+                console.log(err);
+                this.error = err;
             }
             this.isLoading = false;
         }),
+
+        setIsLoading(isLoading) {
+            this.isLoading = isLoading;
+        },
     };
 
     decorate(store, {
         user: observable,
+        error: observable,
         isLoading: observable,
         isAuth: computed,
+        setIsLoading: action,
+        register: action,
+        login: action
     });
 
     return store;
