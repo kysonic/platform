@@ -9,6 +9,7 @@
         "root": ["./"],
         "alias": {
           "@components": "./src/components",
+          "@types": "./src/types",
           "@layouts": "./src/components/layouts",
           "@themes": "./src/themes",
           "@navigator": "./src/navigator",

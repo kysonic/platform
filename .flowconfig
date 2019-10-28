@@ -1,12 +1,14 @@
 [ignore]
 ; We fork some components by platform
 .*/*[.]android.js
-
+; Ignore theme files
+src/themes/**/*.js
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
 
 ; Ignore polyfills
 node_modules/react-native/Libraries/polyfills/.*
+node_modules/react-native-rebase/**/.*
 
 ; These should not be required directly
 ; require from fbjs/lib instead: require('fbjs/lib/warning')
@@ -49,6 +51,18 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(<VERSION>\\)? *\\(si
 suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)?:? #[0-9]+
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
+module.name_mapper='^@components' ->'<PROJECT_ROOT>/src/components'
+module.name_mapper='^@types' ->'<PROJECT_ROOT>/src/types'
+module.name_mapper='^@layouts' ->'<PROJECT_ROOT>/src/layouts'
+module.name_mapper='^@themes' ->'<PROJECT_ROOT>/src/themes'
+module.name_mapper='^@navigator' ->'<PROJECT_ROOT>/src/navigator'
+module.name_mapper='^@screens' ->'<PROJECT_ROOT>/src/screens'
+module.name_mapper='^@stores' ->'<PROJECT_ROOT>/src/stores'
+module.name_mapper='^@utils' ->'<PROJECT_ROOT>/src/utils'
+module.name_mapper='^@services' ->'<PROJECT_ROOT>/src/services'
+module.name_mapper='^@constants' ->'<PROJECT_ROOT>/src/constants'
+module.name_mapper='^@assets' ->'<PROJECT_ROOT>/assets'
+
 [lints]
 sketchy-null-number=warn
 sketchy-null-mixed=warn
@@ -72,4 +86,4 @@ untyped-import
 untyped-type-import
 
 [version]
-^0.105.0
+^0.110.0

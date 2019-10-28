@@ -5,6 +5,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import theme from '@themes/native-base/variables/trash';
 import authStore from '@stores/auth/auth-store';
 import * as yup from 'yup';
+import {useObserver} from 'mobx-react-lite';
 
 type Mode = "login" | "register";
 
@@ -48,6 +49,7 @@ const AuthForm = ({style = {}}) => {
     };
 
     const modeAction = async () => {
+        setErrors({});
         try {
             authStore.setIsLoading(true);
             await validationSchema.validate({email, password}, {abortEarly: false});
@@ -60,7 +62,7 @@ const AuthForm = ({style = {}}) => {
         }
     };
 
-    return (
+    return useObserver(() => (
         <Form style={[styles.form, style]}>
             <Text style={styles.title}>{MODES[mode].caption}</Text>
             <Item style={styles.item}>
@@ -71,6 +73,11 @@ const AuthForm = ({style = {}}) => {
                 <Input style={styles.input} secureTextEntry={true} placeholder="Password" onChangeText={(value) => setPassword(value)} />
                 {errors.password ? <Text style={styles.error}>{errors.password}</Text> : null}
             </Item>
+            {
+                authStore.error ? (
+                    <Text style={styles.error}>{authStore.error}</Text>
+                ) : null
+            }
             <TouchableOpacity style={styles.link} onPress={toggleMode}>
                 <Text style={styles.linkText}>{MODES[mode].text}</Text>
             </TouchableOpacity>
@@ -80,7 +87,7 @@ const AuthForm = ({style = {}}) => {
                 </Button>
             </View>
         </Form>
-    );
+    ));
 };
 
 const styles = StyleSheet.create({

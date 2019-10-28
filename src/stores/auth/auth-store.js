@@ -1,11 +1,20 @@
 // @flow
 import {observable, computed, flow, decorate, action} from 'mobx';
 import {auth} from 'react-native-firebase';
+import type {User} from '@types/base';
+
+type AuthStoreType = {
+    user: User | null,
+    error: string,
+    isLoading: boolean,
+    isAuth: () => boolean,
+    setIsLoading: (isLoading: boolean) => void
+}
 
 function AuthStore() {
-    const store = {
+    const store: AuthStoreType = {
         user: null,
-        error: null,
+        error: '',
         isLoading: false,
 
         get isAuth() {
@@ -14,27 +23,44 @@ function AuthStore() {
 
         register: flow(function *(email: string, password: string) {
             this.isLoading = true;
+            this.error = '';
             try {
                 const response = yield auth().createUserWithEmailAndPassword(email, password);
                 this.user = response.user?._user;
             } catch (err) {
                 console.log(err);
-                this.error = err;
+                this.error = err.message;
             }
             this.isLoading = false;
+            return false;
         }),
 
         login: flow(function *(email: string, password: string) {
             this.isLoading = true;
+            this.error = '';
             try {
                 const response = yield auth().signInWithEmailAndPassword(email, password);
-                console.log(response);
                 this.user = response.user?._user;
             } catch (err) {
                 console.log(err);
-                this.error = err;
+                this.error = err.message;
             }
             this.isLoading = false;
+            return false;
+        }),
+
+        logout: flow(function *() {
+            this.isLoading = true;
+            this.error = '';
+            try {
+                const response = yield auth().signOut();
+                console.log(response);
+            } catch (err) {
+                console.log(err);
+                this.error = err.message;
+            }
+            this.isLoading = false;
+            return false;
         }),
 
         setIsLoading(isLoading) {
@@ -49,7 +75,7 @@ function AuthStore() {
         isAuth: computed,
         setIsLoading: action,
         register: action,
-        login: action
+        login: action,
     });
 
     return store;
