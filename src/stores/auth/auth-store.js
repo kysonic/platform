@@ -8,6 +8,9 @@ type AuthStoreType = {
     error: string,
     isLoading: boolean,
     isAuth: () => boolean,
+    register: () => Promise<any>,
+    login: () => Promise<any>,
+    logout: () => Promise<any>,
     setIsLoading: (isLoading: boolean) => void
 }
 

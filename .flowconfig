@@ -1,14 +1,14 @@
 [ignore]
 ; We fork some components by platform
 .*/*[.]android.js
-; Ignore theme files
-src/themes/**/*.js
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
 
 ; Ignore polyfills
 node_modules/react-native/Libraries/polyfills/.*
-node_modules/react-native-rebase/**/.*
+
+; Ignore theme files
+.*/src/themes/**/.*
 
 ; These should not be required directly
 ; require from fbjs/lib instead: require('fbjs/lib/warning')
