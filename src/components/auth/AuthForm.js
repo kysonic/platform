@@ -8,6 +8,8 @@ import authStore from '@stores/auth/auth-store';
 import * as yup from 'yup';
 import {useObserver} from 'mobx-react-lite';
 
+import type { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet';
+
 type Mode = "login" | "register";
 
 type Errors = {
@@ -29,10 +31,15 @@ const MODE_KEYS = Object.keys(MODES);
 
 const validationSchema = yup.object().shape({
     email: yup.string().email('Email is not correct').required('Email is required'),
-    password: yup.string().min(3, 'Password should contain at least 3 symbols').required('Password is required')
+    password: yup.string().min(3, 'Password should contain at least 3 symbols').required('Password is required'),
 });
 
-const AuthForm = ({style = {}}) => {
+
+type Props = {
+    style?: { [string]: ViewStyleProp }
+}
+
+const AuthForm = ({style = {}}: Props) => {
     const [mode, setMode] = useState('login');
     (mode: Mode);
     const [errors, setErrors] = useState({});
@@ -91,7 +98,7 @@ const AuthForm = ({style = {}}) => {
     ));
 };
 
-const styles = StyleSheet.create({
+const styles: {[string]: ViewStyleProp} = StyleSheet.create({
     form: {
         padding: 10,
         justifyContent: 'center',
