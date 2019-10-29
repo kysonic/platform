@@ -19,6 +19,11 @@ node_modules/warning/.*
 
 [untyped]
 .*/node_modules/@react-native-community/cli/.*/.*
+.*/node_modules/react-native-firebase/dist/modules/firestore/.*
+.*/node_modules/react-native-firebase/dist/modules/messaging/.*
+.*/node_modules/react-native-firebase/dist/modules/notifications/.*
+.*/node_modules/react-native-firebase/dist/utils/.*
+.*/node_modules/react-native/Libraries/Lists/VirtualizedList.js
 
 [include]
 
@@ -62,6 +67,7 @@ module.name_mapper='^@utils' ->'<PROJECT_ROOT>/src/utils'
 module.name_mapper='^@services' ->'<PROJECT_ROOT>/src/services'
 module.name_mapper='^@constants' ->'<PROJECT_ROOT>/src/constants'
 module.name_mapper='^@assets' ->'<PROJECT_ROOT>/assets'
+module.name_mapper='^@icons' ->'<PROJECT_ROOT>/src/icons'
 
 [lints]
 sketchy-null-number=warn

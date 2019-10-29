@@ -305,6 +305,9 @@ export default {
   subtitleColor: platform === PLATFORM.IOS ? '#8e8e93' : '#FFF',
   titleFontColor: platform === PLATFORM.IOS ? '#8e8e93' : '#8e8e93',
 
+  // Social Icons
+  socialIconsBorderColor: '#8e8e93',
+
   // Other
   borderRadiusBase: platform === PLATFORM.IOS ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),

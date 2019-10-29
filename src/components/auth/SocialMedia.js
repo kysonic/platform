@@ -1,37 +1,51 @@
 // @flow
-import React from 'react';
-import {View, Image, StyleSheet, TouchableHighlight} from 'react-native';
+import * as React from 'react';
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import SocialIcons from '@icons/social';
+// $FlowFixMe
+import theme from '@themes/native-base/variables/platform';
 
 import type { StyleSheetType } from '@types/base';
-import type {ImageSource} from 'react-native/Libraries/Image/ImageSource';
+import type {PressEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 
 const DEFAULT_SOCIAL_NETWORK = ['google', 'facebook'];
-
-const ICONS: {[string]: ImageSource} = {
-    'google': require('@assets/img/socials/google.png'),
-    'facebook': require('@assets/img/socials/facebook.png'),
-    'placeholder': require('@assets/img/placeholders/image.jpg'),
-};
-
 type PropsType = {
     socials?: Array<string>,
-    onIconPress?: () => any
+    onIconPress?: (social: string, ev?: PressEvent) => any
 };
 
 const SocialMedia = ({socials = DEFAULT_SOCIAL_NETWORK, onIconPress = () => {}}: PropsType) => {
     return (
-        <View>
+        <View style={styles.container}>
             {socials.map((social: string) => (
-                <TouchableHighlight onPress={(ev) => onIconPress(social, ev)}>
-                    <Image source={ICONS[social] ? ICONS[social] : ICONS.placeholder}></Image>
-                </TouchableHighlight>
+                <TouchableOpacity style={styles.item} onPress={(ev: PressEvent) => onIconPress(social, ev)}>
+                    {/* $FlowFixMe */}
+                    <Image style={styles.img} source={SocialIcons[social] ? SocialIcons[social] : SocialIcons.placeholder}></Image>
+                </TouchableOpacity>
             ))}
         </View>
     );
 };
 
 const styles: StyleSheetType = StyleSheet.create({
-
+    container: {
+        width: '100%',
+        height: 56,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    item: {
+        width: 72,
+        height: 72,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: theme.socialIconsBorderColor,
+        borderRadius: 10,
+    },
+    img: {
+        width: '100%',
+        height: '100%',
+    },
 });
 
 export default SocialMedia;
