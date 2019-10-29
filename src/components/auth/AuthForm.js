@@ -1,33 +1,18 @@
 // @flow
 import React, {useState} from 'react';
 import {Button, Form, Input, Item, Text} from 'native-base';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 // $FlowFixMe
-import theme from '@themes/native-base/variables/trash';
+import theme from '@themes/native-base/variables/platform';
 import authStore from '@stores/auth/auth-store';
 import * as yup from 'yup';
 import {useObserver} from 'mobx-react-lite';
 
-import type { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet';
-
-type Mode = "login" | "register";
+import type { ModeType, StyleSheetType } from '@types/base';
 
 type Errors = {
     [string]: string
 }
-
-const MODES = {
-    login: {
-        caption: 'Sign in',
-        text: "Doesn't have account yet?",
-    },
-    register: {
-        caption: 'Sing up',
-        text: "Back to sign in",
-    },
-};
-
-const MODE_KEYS = Object.keys(MODES);
 
 const validationSchema = yup.object().shape({
     email: yup.string().email('Email is not correct').required('Email is required'),
@@ -35,13 +20,14 @@ const validationSchema = yup.object().shape({
 });
 
 
-type Props = {
-    style?: { [string]: ViewStyleProp }
+type PropsType = {
+    mode: ModeType,
+    style?: StyleSheetType,
+    BeforeButton?: () => any,
+    title: string
 }
 
-const AuthForm = ({style = {}}: Props) => {
-    const [mode, setMode] = useState('login');
-    (mode: Mode);
+const AuthForm = ({mode, BeforeButton, style = {}, title}: PropsType) => {
     const [errors, setErrors] = useState({});
     (errors: Errors);
     const [email, setEmail] = useState('');
@@ -49,14 +35,11 @@ const AuthForm = ({style = {}}: Props) => {
     const [password, setPassword] = useState('');
     (password: string);
 
-    const toggleMode = () => {
-        setEmail('');
-        setPassword('');
-        setErrors({});
-        setMode(MODE_KEYS[MODE_KEYS.indexOf(mode) ^ 1]);
-    };
 
     const modeAction = async () => {
+        if (authStore.isLoading) {
+            return false;
+        }
         setErrors({});
         try {
             authStore.setIsLoading(true);
@@ -70,15 +53,21 @@ const AuthForm = ({style = {}}: Props) => {
         }
     };
 
+    const clearForm = () => {
+        setEmail('');
+        setPassword('');
+        setErrors({});
+    };
+
     return useObserver(() => (
         <Form style={[styles.form, style]}>
-            <Text style={styles.title}>{MODES[mode].caption}</Text>
+            <Text style={styles.title}>{title}</Text>
             <Item style={styles.item}>
-                <Input style={styles.input} placeholder="Email" onChangeText={(value) => setEmail(value)} />
+                <Input style={styles.input} value={email} placeholder="Email" onChangeText={(value) => setEmail(value)} />
                 {errors.email ? <Text style={styles.error}>{errors.email}</Text> : null}
             </Item>
             <Item style={styles.item}>
-                <Input style={styles.input} secureTextEntry={true} placeholder="Password" onChangeText={(value) => setPassword(value)} />
+                <Input style={styles.input} value={password} secureTextEntry={true} placeholder="Password" onChangeText={(value) => setPassword(value)} />
                 {errors.password ? <Text style={styles.error}>{errors.password}</Text> : null}
             </Item>
             {
@@ -86,19 +75,17 @@ const AuthForm = ({style = {}}: Props) => {
                     <Text style={styles.error}>{authStore.error}</Text>
                 ) : null
             }
-            <TouchableOpacity style={styles.link} onPress={toggleMode}>
-                <Text style={styles.linkText}>{MODES[mode].text}</Text>
-            </TouchableOpacity>
+            {BeforeButton ? <BeforeButton /> : null}
             <View style={styles.buttonContainer}>
                 <Button block style={styles.button} onPress={modeAction}>
-                    <Text>{!authStore.isLoading ? MODES[mode].caption : '...'}</Text>
+                    <Text>{!authStore.isLoading ? title : '...'}</Text>
                 </Button>
             </View>
         </Form>
     ));
 };
 
-const styles: {[string]: ViewStyleProp} = StyleSheet.create({
+const styles: StyleSheetType = StyleSheet.create({
     form: {
         padding: 10,
         justifyContent: 'center',
@@ -115,18 +102,6 @@ const styles: {[string]: ViewStyleProp} = StyleSheet.create({
     },
     item: {
         marginTop: 10,
-    },
-    link: {
-       padding: 10,
-       paddingLeft: 0,
-       paddingRight: 0,
-       width: '100%',
-    },
-    linkText: {
-        marginTop: 10,
-        textAlign: 'center',
-        color: theme.brandSecondary,
-        textDecorationLine: 'underline',
     },
     buttonContainer: {
         flex: 1,

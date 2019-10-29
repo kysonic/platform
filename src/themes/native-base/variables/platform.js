@@ -1,8 +1,6 @@
-// @flow
-
 import color from 'color';
 import { Platform, Dimensions, PixelRatio } from 'react-native';
-
+// $FlowFixMe
 import { PLATFORM } from './commonColor';
 
 const deviceHeight = Dimensions.get('window').height;
@@ -133,7 +131,9 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: platform === PLATFORM.IOS ? '#007aff' : '#3F51B5',
+  brandPrimary: platform === PLATFORM.IOS ? '#2cb56f' : '#12b582',
+  brandPrimaryDark: '#135a36',
+  brandSecondary: '#23b4b5',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -198,15 +198,15 @@ export default {
   tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
 
   // Header
-  toolbarBtnColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  toolbarDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  toolbarBtnColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',
+  toolbarDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#F8F8F8',
   toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
   toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,
-  toolbarInputColor: platform === PLATFORM.IOS ? '#CECDD2' : '#fff',
+  toolbarInputColor: platform === PLATFORM.IOS ? '#CECDD2' : '#CECDD2',
   searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
   searchBarInputHeight: platform === PLATFORM.IOS ? 30 : 50,
-  toolbarBtnTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  toolbarDefaultBorder: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
+  toolbarBtnTextColor: platform === PLATFORM.IOS ? '#a7a6ab' : '#a7a6ab',
+  toolbarDefaultBorder: platform === PLATFORM.IOS ? '#a7a6ab' : '#a7a6ab',
   iosStatusbar: platform === PLATFORM.IOS ? 'dark-content' : 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
@@ -303,7 +303,7 @@ export default {
   titleFontSize: platform === PLATFORM.IOS ? 17 : 19,
   subTitleFontSize: platform === PLATFORM.IOS ? 11 : 14,
   subtitleColor: platform === PLATFORM.IOS ? '#8e8e93' : '#FFF',
-  titleFontColor: platform === PLATFORM.IOS ? '#000' : '#FFF',
+  titleFontColor: platform === PLATFORM.IOS ? '#8e8e93' : '#8e8e93',
 
   // Other
   borderRadiusBase: platform === PLATFORM.IOS ? 5 : 2,

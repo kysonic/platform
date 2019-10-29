@@ -1,17 +1,22 @@
+// @flow
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import AuthForm from '@components/auth/AuthForm';
-import {ConnectHeader} from '@utils/navigation';
+import {StyleSheet} from 'react-native';
+import {Container, Content} from 'native-base';
+import AuthFormDoubleMode from '@components/auth/AuthFormDoubleMode';
+import {WithoutHeader} from '@utils/navigation';
+import type {StyleSheetType} from '@types/base';
 
-const AuthScreen = (props) => {
+const AuthScreen = () => {
     return (
-        <View style={styles.container}>
-            <AuthForm style={styles.form} />
-        </View>
+        <Container>
+            <Content contentContainerStyle={styles.container}>
+                <AuthFormDoubleMode />
+            </Content>
+        </Container>
     );
 };
 
-const styles = StyleSheet.create({
+const styles: StyleSheetType = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -22,6 +27,6 @@ const styles = StyleSheet.create({
     },
 });
 
-ConnectHeader(AuthScreen);
+WithoutHeader(AuthScreen);
 
 export default AuthScreen;

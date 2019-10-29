@@ -3,6 +3,7 @@ module.exports = {
   extends: '@react-native-community',
   rules: {
     "prettier/prettier": 0,
-    "no-bitwise": 0
+    "no-bitwise": 0,
+    "react-hooks/exhaustive-deps": 0
   }
 };

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import {Body, Button, Header, Icon, Right, Title, ActionSheet} from 'native-base';
 import authStore from '@stores/auth/auth-store';
@@ -19,12 +20,18 @@ const openActionSheet = () => {
             title: 'Menu',
         },
         buttonIndex => {
-            actions[buttonIndex]();
+            if (actions[buttonIndex] && typeof actions[buttonIndex] === 'function') {
+                actions[buttonIndex]();
+            }
         }
     );
 };
 
-const AppHeader = ({title = 'TRASH'}) => {
+type PropsType = {
+    title?: string
+};
+
+const AppHeader = ({title = ''} : PropsType) => {
     return (
         <Header>
             <Body>

@@ -1,5 +1,9 @@
 // @flow
 
-export type User = {
+import type { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet';
 
-}
+export type StyleSheetType = { [string]: ViewStyleProp }
+
+export type ModeType = "login" | "register";
+
+export type User = {}

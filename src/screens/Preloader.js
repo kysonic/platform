@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {Container, Spinner} from 'native-base';
 import {auth} from 'react-native-firebase';
-import {ConnectHeader} from '@utils/navigation';
+import {WithoutHeader} from '@utils/navigation';
 
 const PreloaderScreen = ({navigation}) => {
+    // Don't clear effect so how it should orchestrate auth state changes all the time
     useEffect(() => {
         auth().onAuthStateChanged((user) => {
             if (!user) {
@@ -28,6 +29,6 @@ const styles = StyleSheet.create({
     },
 });
 
-ConnectHeader(PreloaderScreen);
+WithoutHeader(PreloaderScreen);
 
 export default PreloaderScreen;

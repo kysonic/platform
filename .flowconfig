@@ -53,7 +53,7 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 module.name_mapper='^@components' ->'<PROJECT_ROOT>/src/components'
 module.name_mapper='^@types' ->'<PROJECT_ROOT>/src/types'
-module.name_mapper='^@layouts' ->'<PROJECT_ROOT>/src/layouts'
+module.name_mapper='^@layouts' ->'<PROJECT_ROOT>/src/components/layouts'
 module.name_mapper='^@themes' ->'<PROJECT_ROOT>/src/themes'
 module.name_mapper='^@navigator' ->'<PROJECT_ROOT>/src/navigator'
 module.name_mapper='^@screens' ->'<PROJECT_ROOT>/src/screens'
