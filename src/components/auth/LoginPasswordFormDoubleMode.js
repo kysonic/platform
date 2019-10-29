@@ -1,7 +1,7 @@
 // @flow
 import React, {useState} from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
-import AuthForm from './AuthForm';
+import LoginPasswordForm from './LoginPasswordForm';
 // $FlowFixMe
 import theme from '@themes/native-base/variables/platform';
 
@@ -21,7 +21,7 @@ const MODES = {
 const MODE_KEYS = Object.keys(MODES);
 
 
-const AuthFormDoubleMode = () => {
+const LoginPasswordFormDoubleMode = () => {
     const [mode, setMode] = useState('login');
     (mode: ModeType);
 
@@ -38,7 +38,7 @@ const AuthFormDoubleMode = () => {
     };
 
     return (
-        <AuthForm mode={mode} title={MODES[mode].caption} BeforeButton={ToggleModeText} />
+        <LoginPasswordForm mode={mode} title={MODES[mode].caption} BeforeButton={ToggleModeText} />
     );
 };
 
@@ -57,4 +57,4 @@ const styles: StyleSheetType = StyleSheet.create({
     },
 });
 
-export default AuthFormDoubleMode;
+export default LoginPasswordFormDoubleMode;

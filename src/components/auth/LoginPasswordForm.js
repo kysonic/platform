@@ -27,7 +27,7 @@ type PropsType = {
     title: string
 }
 
-const AuthForm = ({mode, BeforeButton, style = {}, title}: PropsType) => {
+const LoginPasswordForm = ({mode, BeforeButton, style = {}, title}: PropsType) => {
     const [errors, setErrors] = useState({});
     (errors: Errors);
     const [email, setEmail] = useState('');
@@ -115,4 +115,4 @@ const styles: StyleSheetType = StyleSheet.create({
     },
 });
 
-export default AuthForm;
+export default LoginPasswordForm;
