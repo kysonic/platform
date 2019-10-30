@@ -20,3 +20,8 @@ pod install
 ### Android Signing Key
 
 https://stackoverflow.com/questions/42663114/keystore-file-does-not-exist/46138449
+
+### Google Signin
+
+Android - https://github.com/react-native-community/react-native-google-signin/blob/master/docs/android-guide.md
+IOS - https://github.com/react-native-community/react-native-google-signin/blob/master/docs/ios-guide.md

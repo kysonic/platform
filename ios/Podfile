@@ -51,6 +51,7 @@ target 'trash' do
   pod 'Firebase/Database', '~> 6.3.0'
 
   pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
+  pod 'GoogleSignIn', '~> 5.0.0'
 
   target 'trashTests' do
     inherit! :search_paths
