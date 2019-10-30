@@ -2,7 +2,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import LoginPasswordForm from './LoginPasswordForm';
-// $FlowFixMe
 import theme from '@themes/native-base/variables/platform';
 
 import type { ModeType, StyleSheetType} from '@types/base';

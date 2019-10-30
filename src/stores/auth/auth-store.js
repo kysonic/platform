@@ -2,6 +2,7 @@
 import {observable, computed, flow, decorate, action} from 'mobx';
 import {auth} from 'react-native-firebase';
 import type {User} from '@types/base';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 type AuthStoreType = {
     user: User | null,
@@ -10,6 +11,7 @@ type AuthStoreType = {
     isAuth: () => boolean,
     register: (email: string, password: string) => Promise<any>,
     login: (email: string, password: string) => Promise<any>,
+    loginWithGoogle: () => Promise<any>,
     logout: () => Promise<any>,
     setIsLoading: (isLoading: boolean) => void
 }
@@ -19,6 +21,10 @@ function AuthStore() {
         user: null,
         error: '',
         isLoading: false,
+
+        setIsLoading(isLoading) {
+            this.isLoading = isLoading;
+        },
 
         get isAuth() {
             return !!this.user;
@@ -66,9 +72,28 @@ function AuthStore() {
             return false;
         }),
 
-        setIsLoading(isLoading) {
-            this.isLoading = isLoading;
-        },
+        loginWithGoogle: flow(function *() {
+            this.isLoading = true;
+            this.error = '';
+            try {
+                // TODO: Move keys in configs
+                yield GoogleSignin.configure({
+                    webClientId: '972344367086-b2a4pm882msqvsia5a52fcieu5qibktd.apps.googleusercontent.com', // WebClient from Firebase or Goggle Console
+                    offlineAccess: true,
+                });
+                // Get sign in data
+                const data = yield GoogleSignin.signIn();
+                const credential = auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
+                const firebaseUserCredential = yield auth().signInWithCredential(credential);
+                // Save user in the store
+                this.user = firebaseUserCredential.user;
+            } catch (err) {
+                console.log(err);
+                this.error = err.message;
+            }
+            this.isLoading = false;
+            return false;
+        }),
     };
 
     decorate(store, {
@@ -79,6 +104,7 @@ function AuthStore() {
         setIsLoading: action,
         register: action,
         login: action,
+        loginWithGoogle: action,
     });
 
     return store;

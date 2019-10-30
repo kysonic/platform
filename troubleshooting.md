@@ -17,3 +17,6 @@ pod install
 - Issue: Mix of build processes with IDE (Android Studio XCode) and react native scripts.
   Solution: Delete project and install one more time.
 
+### Android Signing Key
+
+https://stackoverflow.com/questions/42663114/keystore-file-does-not-exist/46138449

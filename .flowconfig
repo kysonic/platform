@@ -7,9 +7,6 @@
 ; Ignore polyfills
 node_modules/react-native/Libraries/polyfills/.*
 
-; Ignore theme files
-.*/src/themes/**/.*
-
 ; These should not be required directly
 ; require from fbjs/lib instead: require('fbjs/lib/warning')
 node_modules/warning/.*
@@ -24,6 +21,8 @@ node_modules/warning/.*
 .*/node_modules/react-native-firebase/dist/modules/notifications/.*
 .*/node_modules/react-native-firebase/dist/utils/.*
 .*/node_modules/react-native/Libraries/Lists/VirtualizedList.js
+.*/node_modules/react-native-firebase/dist/modules/auth/index.js.flow
+.*/src/themes/**/.*
 
 [include]
 

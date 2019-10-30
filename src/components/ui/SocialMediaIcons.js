@@ -2,23 +2,24 @@
 import * as React from 'react';
 import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import SocialIcons from '@icons/social';
-// $FlowFixMe
 import theme from '@themes/native-base/variables/platform';
 
 import type { StyleSheetType } from '@types/base';
 import type {PressEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 
-const DEFAULT_SOCIAL_NETWORK = ['google', 'facebook'];
+const DEFAULT_SOCIAL_NETWORK: Array<string> = ['google', 'facebook'];
+
 type PropsType = {
+    style?: StyleSheetType,
     socials?: Array<string>,
     onIconPress?: (social: string, ev?: PressEvent) => any
 };
 
-const SocialMedia = ({socials = DEFAULT_SOCIAL_NETWORK, onIconPress = () => {}}: PropsType) => {
+const SocialMediaIcons = ({socials = DEFAULT_SOCIAL_NETWORK, onIconPress = () => {}, style = {}}: PropsType) => {
     return (
-        <View style={styles.container}>
-            {socials.map((social: string) => (
-                <TouchableOpacity style={styles.item} onPress={(ev: PressEvent) => onIconPress(social, ev)}>
+        <View style={[styles.container, style]}>
+            {socials.map((social: string, index: number) => (
+                <TouchableOpacity key={index} style={styles.item} onPress={(ev: PressEvent) => onIconPress(social, ev)}>
                     {/* $FlowFixMe */}
                     <Image style={styles.img} source={SocialIcons[social] ? SocialIcons[social] : SocialIcons.placeholder}></Image>
                 </TouchableOpacity>
@@ -48,4 +49,4 @@ const styles: StyleSheetType = StyleSheet.create({
     },
 });
 
-export default SocialMedia;
+export default SocialMediaIcons;

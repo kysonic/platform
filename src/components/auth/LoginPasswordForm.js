@@ -2,7 +2,6 @@
 import React, {useState} from 'react';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import {View, StyleSheet} from 'react-native';
-// $FlowFixMe
 import theme from '@themes/native-base/variables/platform';
 import authStore from '@stores/auth/auth-store';
 import * as yup from 'yup';
