@@ -19,7 +19,8 @@
           "@services": "./src/services",
           "@constants": "./src/constants",
           "@assets": "./assets",
-          "@icons": "./src/icons"
+          "@icons": "./src/icons",
+          "@config": "./src/config"
         }
       }
     ]

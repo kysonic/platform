@@ -67,6 +67,7 @@ module.name_mapper='^@services' ->'<PROJECT_ROOT>/src/services'
 module.name_mapper='^@constants' ->'<PROJECT_ROOT>/src/constants'
 module.name_mapper='^@assets' ->'<PROJECT_ROOT>/assets'
 module.name_mapper='^@icons' ->'<PROJECT_ROOT>/src/icons'
+module.name_mapper='^@config' ->'<PROJECT_ROOT>/src/config'
 
 [lints]
 sketchy-null-number=warn

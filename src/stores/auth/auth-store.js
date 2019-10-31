@@ -3,6 +3,8 @@ import {observable, computed, flow, decorate, action} from 'mobx';
 import {auth} from 'react-native-firebase';
 import type {User} from '@types/base';
 import { GoogleSignin } from '@react-native-community/google-signin';
+import { AccessToken, LoginManager } from 'react-native-fbsdk';
+import config from '@config';
 
 type AuthStoreType = {
     user: User | null,
@@ -62,8 +64,7 @@ function AuthStore() {
             this.isLoading = true;
             this.error = '';
             try {
-                const response = yield auth().signOut();
-                console.log(response);
+                yield auth().signOut();
             } catch (err) {
                 console.log(err);
                 this.error = err.message;
@@ -76,9 +77,8 @@ function AuthStore() {
             this.isLoading = true;
             this.error = '';
             try {
-                // TODO: Move keys in configs
                 yield GoogleSignin.configure({
-                    webClientId: '972344367086-b2a4pm882msqvsia5a52fcieu5qibktd.apps.googleusercontent.com', // WebClient from Firebase or Goggle Console
+                    webClientId: config.google?.webClient?.id,
                     offlineAccess: true,
                 });
                 // Get sign in data
@@ -86,6 +86,37 @@ function AuthStore() {
                 const credential = auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
                 // Save user in the store
+                this.user = firebaseUserCredential.user;
+            } catch (err) {
+                console.log(err);
+                this.error = err.message;
+            }
+            this.isLoading = false;
+            return false;
+        }),
+
+        loginWithFacebook: flow(function *() {
+            this.isLoading = true;
+            this.error = '';
+            try {
+                const result = yield LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+                if (result.isCancelled) {
+                    throw new Error('User cancelled request');
+                }
+
+                console.log(`Login success with permissions: ${result.grantedPermissions.toString()}`);
+
+                const data = yield AccessToken.getCurrentAccessToken();
+
+                if (!data) {
+                    throw new Error('Something went wrong obtaining the users access token');
+                }
+
+                const credential = auth.FacebookAuthProvider.credential(data.accessToken);
+
+                const firebaseUserCredential = yield auth().signInWithCredential(credential);
+
                 this.user = firebaseUserCredential.user;
             } catch (err) {
                 console.log(err);
