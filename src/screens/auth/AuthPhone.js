@@ -2,15 +2,16 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Container, Content} from 'native-base';
-import LoginPasswordFormDoubleMode from '@components/auth/LoginPasswordFormDoubleMode';
 import {WithoutHeader} from '@utils/navigation';
+import PhoneFrom  from '@components/auth/PhoneForm';
+
 import type {StyleSheetType} from '@types/base';
 
-const AuthLoginPasswordSignInScreen = () => {
+const AuthPhoneScreen = () => {
     return (
         <Container>
             <Content contentContainerStyle={styles.container}>
-                <LoginPasswordFormDoubleMode />
+                <PhoneFrom title="Login with phone" />
             </Content>
         </Container>
     );
@@ -27,6 +28,6 @@ const styles: StyleSheetType = StyleSheet.create({
     },
 });
 
-WithoutHeader(AuthLoginPasswordSignInScreen);
+WithoutHeader(AuthPhoneScreen);
 
-export default AuthLoginPasswordSignInScreen;
+export default AuthPhoneScreen;

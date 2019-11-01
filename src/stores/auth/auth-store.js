@@ -14,6 +14,7 @@ type AuthStoreType = {
     register: (email: string, password: string) => Promise<any>,
     login: (email: string, password: string) => Promise<any>,
     loginWithGoogle: () => Promise<any>,
+    loginWithFacebook: () => Promise<any>,
     logout: () => Promise<any>,
     setIsLoading: (isLoading: boolean) => void
 }
@@ -104,8 +105,6 @@ function AuthStore() {
                 if (result.isCancelled) {
                     throw new Error('User cancelled request');
                 }
-
-                console.log(`Login success with permissions: ${result.grantedPermissions.toString()}`);
 
                 const data = yield AccessToken.getCurrentAccessToken();
 

@@ -133,6 +133,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -179,12 +180,15 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':react-native-text-input-mask')
     implementation project(':react-native-fbsdk')
     implementation project(':@react-native-community_google-signin')
     implementation project(':react-native-firebase')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "com.google.firebase:firebase-analytics:17.2.0"
+
 
     implementation "com.google.android.gms:play-services-base:17.1.0"
     implementation "com.google.firebase:firebase-core:17.2.0"

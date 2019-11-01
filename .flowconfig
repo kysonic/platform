@@ -23,6 +23,7 @@ node_modules/warning/.*
 .*/node_modules/react-native/Libraries/Lists/VirtualizedList.js
 .*/node_modules/react-native-firebase/dist/modules/auth/index.js.flow
 .*/src/themes/**/.*
+.*/node_modules/@react-native-community/google-signin/index.js.flow
 
 [include]
 

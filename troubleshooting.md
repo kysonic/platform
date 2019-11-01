@@ -25,3 +25,25 @@ https://stackoverflow.com/questions/42663114/keystore-file-does-not-exist/461384
 
 Android - https://github.com/react-native-community/react-native-google-signin/blob/master/docs/android-guide.md
 IOS - https://github.com/react-native-community/react-native-google-signin/blob/master/docs/ios-guide.md
+
+### Execution failed for task ':app:transformDexArchiveWithExternalLibsDexMergerForDebug'.
+
+- Try running ./gradlew app:dependencies in android directory in terminal
+
+- just remove both 'build' folder in /android and /android/app
+  and build again with 'react-native run-android'
+
+- https://developer.android.com/studio/build/multidex
+
+### IOS Swift version is not compatible 
+
+Update XCode and re-run build 
+
+### IOS Cannot find simulator 
+
+- react-native run-ios --simulator="New Simulator Name"
+- remove node_modules and reinstall via npm or yarn
+
+### IOS fatal error: 'React/RCTBridge.h' file not found | Faced in react-native-text-input-mask
+
+n\a - https://github.com/react-native-community/react-native-text-input-mask/issues/73

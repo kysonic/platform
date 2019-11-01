@@ -6,7 +6,7 @@ import LoginPasswordFormDoubleMode from '@components/auth/LoginPasswordFormDoubl
 import {WithoutHeader} from '@utils/navigation';
 import type {StyleSheetType} from '@types/base';
 
-const AuthScreen = () => {
+const AuthLoginPasswordSignUpScreen = () => {
     return (
         <Container>
             <Content contentContainerStyle={styles.container}>
@@ -27,6 +27,6 @@ const styles: StyleSheetType = StyleSheet.create({
     },
 });
 
-WithoutHeader(AuthScreen);
+WithoutHeader(AuthLoginPasswordSignUpScreen);
 
-export default AuthScreen;
+export default AuthLoginPasswordSignUpScreen;

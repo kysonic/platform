@@ -1,9 +1,12 @@
 // @flow
+import * as React from 'react';
+import {View} from 'react-native';
 
-import type { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet';
+type ViewProps = React.ElementProps<typeof View>;
+type ViewStyleProp = $PropertyType<ViewProps, 'style'>;
 
-export type StyleSheetType = { [string]: ViewStyleProp }
+export type StyleSheetType = { [string]: $ReadOnly<ViewStyleProp >};
 
 export type ModeType = "login" | "register";
 
-export type User = {}
+export type User = {};
