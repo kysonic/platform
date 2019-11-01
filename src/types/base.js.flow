@@ -10,3 +10,10 @@ export type StyleSheetType = { [string]: $ReadOnly<ViewStyleProp >};
 export type ModeType = "login" | "register";
 
 export type User = {};
+
+export type ReactNodeWithoutStrings = React.ChildrenArray<
+    | void
+    | null
+    | boolean
+    | React.Element<any>
+    >;

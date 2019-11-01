@@ -181,7 +181,6 @@ android {
 
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
-    implementation project(':react-native-text-input-mask')
     implementation project(':react-native-fbsdk')
     implementation project(':@react-native-community_google-signin')
     implementation project(':react-native-firebase')

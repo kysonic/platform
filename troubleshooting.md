@@ -47,3 +47,8 @@ Update XCode and re-run build
 ### IOS fatal error: 'React/RCTBridge.h' file not found | Faced in react-native-text-input-mask
 
 n\a - https://github.com/react-native-community/react-native-text-input-mask/issues/73
+
+### Unlink of module was not successfull
+
+Delete ./android/app/build
+Go to ./android and run `./gradlew clean`
