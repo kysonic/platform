@@ -11,7 +11,7 @@ const AuthPhoneScreen = () => {
     return (
         <Container>
             <Content contentContainerStyle={styles.container}>
-                <PhoneFrom title="Enter your phone number" />
+                <PhoneFrom title="Login with phone number" />
             </Content>
         </Container>
     );

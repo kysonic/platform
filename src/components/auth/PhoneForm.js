@@ -15,41 +15,78 @@ type PropsType = {
     title: string,
 }
 
-const PHONE_SYMBOLS_COUNT = 18;
+const PHONE_SYMBOLS_COUNT = 16;
+const CODE_SYMBOLS_COUNT = 6;
 
 const PhoneForm = ({style = {}, title}: PropsType) => {
     const [phone, setPhone] = useState('');
     (phone: string);
     const [phoneReady, setPhoneReady] = useState(false);
     (phoneReady: boolean);
+    const [code, setCode] = useState('');
+    (code: string);
+    const [codeReady, setCodeReady] = useState(false);
+    (codeReady: boolean);
 
     useEffect(() => {
         setPhoneReady(phone.length === PHONE_SYMBOLS_COUNT);
     }, [phone]);
 
-    const sendRequest = () => {
-        console.log('Request!');
-    }
+    useEffect(() => {
+        setCodeReady(code.length === CODE_SYMBOLS_COUNT);
+    }, [code]);
+
+    const sendRequest = async () => {
+        await authStore.loginWithPhone(phone);
+    };
+
+    const verifyCode = async () => {
+        await authStore.confirmPhoneCode(code);
+    };
 
     return useObserver(() => (
         <Form style={[styles.form, style]}>
             <Text style={styles.title}>{title}</Text>
-            <FloatIcon icon="check" isShown={phoneReady}>
-                <TextInputMask
-                    placeholder = "+X (XXX) XXX XX XX"
-                    keyboardType="numeric"
-                    style={styles.input}
-                    type="custom"
-                    value={phone}
-                    options={{
-                        mask: '+9 (999) 999-99-99',
-                    }}
-                    onChangeText={text => setPhone(text)}
-                />
-            </FloatIcon>
-            {phoneReady ? (
+            {
+                !authStore.phoneResponse ? (
+                    <FloatIcon icon="check" isShown={phoneReady}>
+                        <TextInputMask
+                            placeholder = "+X (XXX) XXX XX XX"
+                            keyboardType="numeric"
+                            style={styles.input}
+                            type="custom"
+                            value={phone}
+                            options={{
+                                mask: '+9 999 999-99-99',
+                            }}
+                            onChangeText={text => setPhone(text)}
+                        />
+                    </FloatIcon>
+                ) : null
+            }
+            {phoneReady && !authStore.phoneResponse ? (
                 <Button style={styles.button} rounded block onPress={sendRequest}>
                     <Text>Login</Text>
+                </Button>
+            ) : null}
+            {authStore.phoneResponse ? (
+                <FloatIcon icon="check" isShown={codeReady}>
+                    <TextInputMask
+                        placeholder = "Enter verification code"
+                        keyboardType="numeric"
+                        style={styles.input}
+                        type="custom"
+                        value={code}
+                        options={{
+                            mask: '999999',
+                        }}
+                        onChangeText={text => setCode(text)}
+                    />
+                </FloatIcon>
+            ) : null}
+            {codeReady && authStore.phoneResponse ? (
+                <Button style={styles.button} rounded block onPress={verifyCode}>
+                    <Text>Verify Code</Text>
                 </Button>
             ) : null}
         </Form>

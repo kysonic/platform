@@ -10,11 +10,14 @@ type AuthStoreType = {
     user: User | null,
     error: string,
     isLoading: boolean,
+    phoneResponse: Object | null,
     isAuth: () => boolean,
     register: (email: string, password: string) => Promise<any>,
     login: (email: string, password: string) => Promise<any>,
     loginWithGoogle: () => Promise<any>,
     loginWithFacebook: () => Promise<any>,
+    loginWithPhone: (phone: string) => Promise<any>,
+    confirmPhoneCode: (code: string) => Promise<any>,
     logout: () => Promise<any>,
     setIsLoading: (isLoading: boolean) => void
 }
@@ -24,6 +27,7 @@ function AuthStore() {
         user: null,
         error: '',
         isLoading: false,
+        phoneResponse: null,
 
         setIsLoading(isLoading) {
             this.isLoading = isLoading;
@@ -124,12 +128,40 @@ function AuthStore() {
             this.isLoading = false;
             return false;
         }),
+
+        loginWithPhone: flow(function *(phone: string) {
+            this.isLoading = true;
+            this.error = '';
+            try {
+                this.phoneResponse = yield auth().signInWithPhoneNumber(phone);
+                console.log(this.phoneResponse);
+            } catch (err) {
+                console.log(err);
+                this.error = err.message;
+            }
+            this.isLoading = false;
+            return false;
+        }),
+
+        confirmPhoneCode: flow(function *(code: string) {
+            this.isLoading = true;
+            this.error = '';
+            try {
+                this.user = yield this.phoneResponse.confirm(code);
+            } catch (err) {
+                console.log(err);
+                this.error = err.message;
+            }
+            this.isLoading = false;
+            return false;
+        }),
     };
 
     decorate(store, {
         user: observable,
         error: observable,
         isLoading: observable,
+        phoneResponse: observable.ref,
         isAuth: computed,
         setIsLoading: action,
         register: action,
