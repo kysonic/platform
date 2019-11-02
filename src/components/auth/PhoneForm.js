@@ -48,6 +48,11 @@ const PhoneForm = ({style = {}, title}: PropsType) => {
         <Form style={[styles.form, style]}>
             <Text style={styles.title}>{title}</Text>
             {
+                authStore.error ? (
+                    <Text style={styles.error}>{authStore.error}</Text>
+                ) : null
+            }
+            {
                 !authStore.phoneResponse ? (
                     <FloatIcon icon="check" isShown={phoneReady}>
                         <TextInputMask
@@ -119,6 +124,11 @@ const styles: StyleSheetType = StyleSheet.create({
         width: '80%',
         marginLeft: '10%',
         marginTop: 20,
+    },
+    error: {
+        marginTop: 0,
+        fontSize: 12,
+        color: theme.brandDanger,
     },
 });
 
