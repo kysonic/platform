@@ -1,16 +1,18 @@
 // @flow
 import {observable, computed, flow, decorate, action} from 'mobx';
 import {auth} from 'react-native-firebase';
-import type {User} from '@types/base';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import config from '@config';
 
-type AuthStoreType = {
-    user: User | null,
+import type {UserType} from '@types/base';
+
+export type AuthStoreType = {
+    user: UserType | null,
     error: string,
     isLoading: boolean,
     phoneResponse: Object | null,
+    setIsLoading: (isLoading: boolean) => void,
     isAuth: () => boolean,
     register: (email: string, password: string) => Promise<any>,
     login: (email: string, password: string) => Promise<any>,
@@ -19,10 +21,9 @@ type AuthStoreType = {
     loginWithPhone: (phone: string) => Promise<any>,
     confirmPhoneCode: (code: string) => Promise<any>,
     logout: () => Promise<any>,
-    setIsLoading: (isLoading: boolean) => void
 }
 
-function AuthStore() {
+export function Auth() {
     const store: AuthStoreType = {
         user: null,
         error: '',
@@ -172,4 +173,4 @@ function AuthStore() {
     return store;
 }
 
-export default AuthStore();
+export default Auth();

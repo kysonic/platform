@@ -2,7 +2,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import SocialMediaIcons from '@components/ui/SocialMediaIcons';
-import authStore from '@stores/auth/auth-store';
+import authStore from '@stores/auth';
 import {capitalizeFirst} from '@utils/string';
 
 import type {StyleSheetType} from '@types/base';

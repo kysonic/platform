@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import {View, StyleSheet} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
-import authStore from '@stores/auth/auth-store';
+import authStore from '@stores/auth';
 import * as yup from 'yup';
 import {useObserver} from 'mobx-react-lite';
 

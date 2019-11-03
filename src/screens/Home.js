@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Container, Content, Footer, FooterTab, Button, Text} from 'native-base';
 import TodoList from '@components/demo/TodoList';
 import firebase from 'react-native-firebase';
@@ -15,7 +15,7 @@ const HomeScreen = ({navigation: {navigate}}) => {
             </Content>
             <Footer>
                 <FooterTab>
-                    <Button full>
+                    <Button full onPress={() => navigate('Profile')}>
                         <Text>Footer</Text>
                     </Button>
                 </FooterTab>

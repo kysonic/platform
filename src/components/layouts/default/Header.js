@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import {Body, Button, Header, Icon, Right, Title, ActionSheet} from 'native-base';
-import authStore from '@stores/auth/auth-store';
+import authStore from '@stores/auth';
 
 const BUTTONS = ['Logout', 'Cancel'];
 const CANCEL_INDEX = 1;

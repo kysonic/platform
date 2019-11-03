@@ -5,7 +5,7 @@ import {StyleSheet} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
 import {useObserver} from 'mobx-react-lite';
 import {TextInputMask} from 'react-native-masked-text';
-import authStore from '@stores/auth/auth-store';
+import authStore from '@stores/auth';
 import FloatIcon from '@components/ui/FloatIcon';
 
 import type { StyleSheetType } from '@types/base';
