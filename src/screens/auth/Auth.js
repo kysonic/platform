@@ -1,12 +1,13 @@
 // @flow
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Container, Content, Button, Text} from 'native-base';
 import SocialMediaForm from '@components/auth/SocialMediaForm';
 import {WithoutHeader} from '@utils/navigation';
-import type {StyleSheetType} from '@types/base';
-import {_NavigationInjectedProps} from 'react-navigation';
+import theme from '@themes/native-base/variables/platform';
 
+import type {StyleSheetType} from '@types/base';
+import type {_NavigationInjectedProps} from 'react-navigation';
 type PropsType = {
     navigation: _NavigationInjectedProps
 }
@@ -15,11 +16,21 @@ const AuthScreen = ({navigation}: PropsType) => {
     return (
         <Container>
             <Content contentContainerStyle={styles.container}>
+                <View></View>
                 <View style={styles.centerGroup}>
-                    <SocialMediaForm style={styles.socialIcons} />
+                    <Text style={styles.socialText}>Sing in with social networks</Text>
+                    <SocialMediaForm style={styles.socialMediaForm} />
                     <Button style={styles.button} rounded block onPress={() => navigation.navigate('AuthPhone')}>
-                        <Text>Login with phone</Text>
+                        <Text>Sign in with phone</Text>
                     </Button>
+                    <Button style={styles.button} rounded block onPress={() => navigation.navigate('AuthLoginPasswordSignIn')}>
+                        <Text>Sing in with email</Text>
+                    </Button>
+                </View>
+                <View>
+                    <TouchableOpacity style={styles.registerContainer} onPress={() => navigation.navigate('AuthLoginPasswordSignUp')}>
+                        <Text style={styles.register}>Registration</Text>
+                    </TouchableOpacity>
                 </View>
             </Content>
         </Container>
@@ -29,19 +40,38 @@ const AuthScreen = ({navigation}: PropsType) => {
 const styles: StyleSheetType = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    socialText: {
+        width: '100%',
+        textAlign: 'center',
+        paddingTop: 20,
+        paddingBottom: 20,
+        fontSize: 18,
+        color: theme.listNoteColor,
     },
     centerGroup: {
         width: 250,
-        flexBasis: 120,
+        height: 250,
+        justifyContent: 'space-between',
     },
     button: {
+        marginTop: 20,
         width: '80%',
         marginLeft: '10%',
     },
-    socialIcons: {
+    socialMediaForm: {
         width: '100%',
+        height: 80,
+    },
+    registerContainer: {
+        marginBottom: 20,
+    },
+    register: {
+        textAlign: 'center',
+        color: theme.brandSecondary,
+        textDecorationLine: 'underline',
     },
 });
 

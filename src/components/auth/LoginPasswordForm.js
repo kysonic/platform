@@ -76,7 +76,7 @@ const LoginPasswordForm = ({mode, BeforeButton, style = {}, title}: PropsType) =
             }
             {BeforeButton ? <BeforeButton /> : null}
             <View style={styles.buttonContainer}>
-                <Button block style={styles.button} onPress={modeAction}>
+                <Button rounded block style={styles.button} onPress={modeAction}>
                     <Text>{!authStore.isLoading ? title : '...'}</Text>
                 </Button>
             </View>
@@ -109,7 +109,7 @@ const styles: StyleSheetType = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        marginTop: 10,
+        marginTop: 20,
         width: '75%',
     },
 });

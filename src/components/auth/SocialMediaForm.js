@@ -25,10 +25,7 @@ const SocialMediaForm = ({style}: PropsType) => {
 };
 
 const styles: StyleSheetType = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: '100%',
-    },
+    container: {}
 });
 
 export default SocialMediaForm;

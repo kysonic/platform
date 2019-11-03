@@ -4,7 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import PreloaderScreen from '@screens/Preloader';
 import AuthScreen from '@screens/auth/Auth';
 import AuthLoginPasswordSignInScreen from '@screens/auth/AuthLoginPasswordSignIn';
-import AuthLoginPasswordSignUpScreen from '@screens/auth/AuthLoginPasswordSignIn';
+import AuthLoginPasswordSignUpScreen from '@screens/auth/AuthLoginPasswordSignUp';
 import AuthPhoneScreen from '@screens/auth/AuthPhone';
 import HomeScreen from '@screens/Home';
 import ProfileScreen from '@screens/Profile';

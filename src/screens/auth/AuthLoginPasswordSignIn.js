@@ -2,7 +2,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Container, Content} from 'native-base';
-import LoginPasswordFormDoubleMode from '@components/auth/LoginPasswordFormDoubleMode';
+import LoginPasswordForm from '@components/auth/LoginPasswordForm';
 import {WithoutHeader} from '@utils/navigation';
 import type {StyleSheetType} from '@types/base';
 
@@ -10,7 +10,7 @@ const AuthLoginPasswordSignInScreen = () => {
     return (
         <Container>
             <Content contentContainerStyle={styles.container}>
-                <LoginPasswordFormDoubleMode />
+                <LoginPasswordForm mode="login" title="Sing in" />
             </Content>
         </Container>
     );
