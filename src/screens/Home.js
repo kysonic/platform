@@ -5,12 +5,17 @@ import {ConnectHeader} from '@utils/navigation';
 import firestore from '@react-native-firebase/firestore';
 
 const getUsers = async () => {
-    const querySnapshot = await firestore()
-        .collection('users')
-        .get();
-
-    console.log('Total users', querySnapshot.size);
-    console.log('User Documents', querySnapshot.docs);
+    try {
+        console.log('1');
+        const querySnapshot = await firestore()
+            .collection('users')
+            .get();
+        console.log(2);
+        console.log('Total users', querySnapshot.size);
+        console.log('User Documents', querySnapshot.docs);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 const HomeScreen = ({navigation: {navigate}}) => {
