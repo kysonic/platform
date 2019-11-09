@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {Container, Spinner} from 'native-base';
-import {auth} from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 import {WithoutHeader} from '@utils/navigation';
 
 const PreloaderScreen = ({navigation}) => {

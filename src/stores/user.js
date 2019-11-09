@@ -1,6 +1,5 @@
 // @flow
 import {observable, action, flow, decorate} from 'mobx';
-import {database} from 'react-native-firebase';
 
 import type {UserType} from '@types/base';
 
@@ -29,13 +28,7 @@ export function User() {
         error: '',
 
         createUser: flow(function *(user: UserType) {
-            this.isLoading = true;
-            try {
-                yield database().ref(`users/${user.id}`).set(user);
-            } catch (err) {
-                console.log(err);
-                this.error = err.message;
-            }
+
         }),
     };
 

@@ -42,13 +42,6 @@ target 'trash' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'Firebase/Analytics'
-  pod 'Firebase/Core', '~> 6.3.0'
-
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Core', '~> 6.3.0'
-  pod 'Firebase/Auth', '~> 6.3.0'
-  pod 'Firebase/Database', '~> 6.3.0'
 
   pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
   pod 'GoogleSignIn', '~> 5.0.0'
@@ -57,6 +50,12 @@ target 'trash' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
+
+  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
 
   target 'trashTests' do
     inherit! :search_paths

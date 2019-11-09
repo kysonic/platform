@@ -1,17 +1,28 @@
 import React, {useEffect} from 'react';
 import {Container, Content, Footer, FooterTab, Button, Text} from 'native-base';
 import TodoList from '@components/demo/TodoList';
-import firebase from 'react-native-firebase';
 import {ConnectHeader} from '@utils/navigation';
+import firestore from '@react-native-firebase/firestore';
+
+const getUsers = async () => {
+    const querySnapshot = await firestore()
+        .collection('users')
+        .get();
+
+    console.log('Total users', querySnapshot.size);
+    console.log('User Documents', querySnapshot.docs);
+}
 
 const HomeScreen = ({navigation: {navigate}}) => {
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
     return (
         <Container>
             <Content>
                 <TodoList/>
-                <Text>List of available features</Text>
-                <Text>{firebase.database.nativeModuleExists && 'database'}</Text>
-                <Text>{firebase.auth.nativeModuleExists && 'auth'}</Text>
             </Content>
             <Footer>
                 <FooterTab>

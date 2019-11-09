@@ -1,6 +1,6 @@
 // @flow
 import {observable, computed, flow, decorate, action} from 'mobx';
-import {auth} from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import config from '@config';
@@ -12,6 +12,7 @@ export type AuthStoreType = {
     error: string,
     isLoading: boolean,
     phoneResponse: Object | null,
+
     setIsLoading: (isLoading: boolean) => void,
     isAuth: () => boolean,
     register: (email: string, password: string) => Promise<any>,
@@ -118,9 +119,7 @@ export function Auth() {
                 }
 
                 const credential = auth.FacebookAuthProvider.credential(data.accessToken);
-
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
-
                 this.user = firebaseUserCredential.user;
             } catch (err) {
                 console.log(err);

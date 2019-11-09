@@ -48,7 +48,7 @@ Update XCode and re-run build
 
 n\a - https://github.com/react-native-community/react-native-text-input-mask/issues/73
 
-### Unlink of module was not successfull
+### Unlink of module was not successful
 
 Delete ./android/app/build
 Go to ./android and run `./gradlew clean`
