@@ -42,7 +42,7 @@ export function Auth() {
             this.error = '';
             try {
                 const response = yield auth().createUserWithEmailAndPassword(email, password);
-                userStore.createUser(userMapper(response.user?._user));
+                userStore.upsertUser(userMapper(response.user?._user));
             } catch (err) {
                 console.log(err);
                 this.error = err.message;
@@ -89,8 +89,7 @@ export function Auth() {
                 const data = yield GoogleSignin.signIn();
                 const credential = auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
-                // Save user in the store
-                this.user = firebaseUserCredential.user;
+                userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
             } catch (err) {
                 console.log(err);
                 this.error = err.message;

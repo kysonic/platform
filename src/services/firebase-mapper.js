@@ -1,5 +1,7 @@
 // @flow
-import type {UserType} from '@types/base';
+
+import {removeEmpty} from '@utils/object';
+
 import type {FireBaseUserType} from '@types/firebase';
 
 /**
@@ -24,16 +26,11 @@ import type {FireBaseUserType} from '@types/firebase';
  *   "uid": "96dcxiWBBkRQZeMcMF05U988Dxl2"
 */
 
-export function userMapper({uid, email, displayName, photoURL}: FireBaseUserType): UserType {
-    return {
-        id: '',
+export function userMapper({uid, email, displayName, photoURL}: FireBaseUserType) {
+    return removeEmpty({
         authId: uid,
         email: email,
         name: displayName,
-        startedCourses: [],
-        completedCourses: [],
-        ecoIndex: 0,
-        birthDate: '',
         avatar: photoURL,
-    };
+    });
 }
