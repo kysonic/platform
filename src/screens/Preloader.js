@@ -10,9 +10,9 @@ const PreloaderScreen = ({navigation}) => {
     useEffect(() => {
         auth().onAuthStateChanged((data) => {
             if (!data) {
+                userStore.clearUser();
                 return navigation.navigate('Auth');
             }
-
             userStore.getUser(data._user?.uid);
             navigation.navigate('Home');
         });

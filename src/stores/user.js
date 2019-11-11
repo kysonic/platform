@@ -4,21 +4,12 @@ import firestore from '@react-native-firebase/firestore';
 
 import type {UserType} from '@types/base';
 
-export type UserStoreType = {
-    user: UserType,
-    isLoading: boolean,
-    error: string,
-
-    createUser: (user: UserType) => Promise<any>,
-    getUser: (user: UserType) => Promise<any>
-}
-
 export const USER_COLLECTION_NAME = 'users';
 
 export function User() {
     const store: UserType = {
         id: '',
-        fbid: '',
+        authId: '',
         email: '',
         name: '',
         startedCourses: [],
@@ -30,7 +21,7 @@ export function User() {
 
     decorate(store, {
         id: observable,
-        fbid: observable,
+        authId: observable,
         email: observable,
         name: observable,
         startedCourses: observable.shallow,
@@ -43,6 +34,15 @@ export function User() {
     return store;
 }
 
+export type UserStoreType = {
+    user: UserType | null,
+    isLoading: boolean,
+    error: string,
+
+    createUser: (user: UserType) => Promise<any>,
+    getUser: (user: UserType) => Promise<any>
+}
+
 export function UserStore() {
     const store: UserStoreType = {
         user: User(),
@@ -53,8 +53,9 @@ export function UserStore() {
 
         createUser: flow(function *(user: UserType) {
             try {
-                yield firestore().collection(USER_COLLECTION_NAME).add(user);
+                const docRef = yield firestore().collection(USER_COLLECTION_NAME).add(user);
                 this.user = user;
+                this.user.id = docRef.id;
             } catch (err) {
                 console.log(err);
                 this.error = err.message;
@@ -63,7 +64,12 @@ export function UserStore() {
 
         getUser: flow(function * (firebaseUid: string) {
             try {
-                const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME).where('fbid', '==', firebaseUid).get();
+                if (!firebaseUid) {
+                    throw new Error('User id not found!');
+                }
+                const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
+                    .where('authId', '==', firebaseUid)
+                    .get();
                 const firstDoc = querySnapshot.docs?.[0];
                 if (!firstDoc) {
                     throw new Error('User not found!');
@@ -75,6 +81,10 @@ export function UserStore() {
                 this.error = err.message;
             }
         }),
+
+        clearUser() {
+            this.user = null;
+        },
     };
 
     decorate(store, {

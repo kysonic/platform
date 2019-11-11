@@ -27,7 +27,7 @@ import type {FireBaseUserType} from '@types/firebase';
 export function userMapper({uid, email, displayName, photoURL}: FireBaseUserType): UserType {
     return {
         id: '',
-        fbid: uid,
+        authId: uid,
         email: email,
         name: displayName,
         startedCourses: [],

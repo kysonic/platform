@@ -11,9 +11,9 @@ export type AuthStoreType = {
     error: string,
     isLoading: boolean,
     phoneResponse: Object | null,
+    isAuth: boolean,
 
     setIsLoading: (isLoading: boolean) => void,
-    isAuth: () => boolean,
     register: (email: string, password: string) => Promise<any>,
     login: (email: string, password: string) => Promise<any>,
     loginWithGoogle: () => Promise<any>,
@@ -29,12 +29,12 @@ export function Auth() {
         isLoading: false,
         phoneResponse: null,
 
-        setIsLoading(isLoading: boolean): void {
-            this.isLoading = isLoading;
-        },
-
         get isAuth() {
             return !!userStore.user;
+        },
+
+        setIsLoading(isLoading: boolean): void {
+            this.isLoading = isLoading;
         },
 
         register: flow(function *(email: string, password: string) {
@@ -55,8 +55,7 @@ export function Auth() {
             this.isLoading = true;
             this.error = '';
             try {
-                const response = yield auth().signInWithEmailAndPassword(email, password);
-                this.user = response.user?._user;
+                yield auth().signInWithEmailAndPassword(email, password);
             } catch (err) {
                 console.log(err);
                 this.error = err.message;
