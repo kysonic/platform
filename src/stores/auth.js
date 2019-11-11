@@ -4,11 +4,10 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import config from '@config';
-
-import type {UserType} from '@types/base';
+import userStore from './user';
+import {userMapper} from '@services/firebase-mapper';
 
 export type AuthStoreType = {
-    user: UserType | null,
     error: string,
     isLoading: boolean,
     phoneResponse: Object | null,
@@ -26,17 +25,16 @@ export type AuthStoreType = {
 
 export function Auth() {
     const store: AuthStoreType = {
-        user: null,
         error: '',
         isLoading: false,
         phoneResponse: null,
 
-        setIsLoading(isLoading) {
+        setIsLoading(isLoading: boolean): void {
             this.isLoading = isLoading;
         },
 
         get isAuth() {
-            return !!this.user;
+            return !!userStore.user;
         },
 
         register: flow(function *(email: string, password: string) {
@@ -44,7 +42,7 @@ export function Auth() {
             this.error = '';
             try {
                 const response = yield auth().createUserWithEmailAndPassword(email, password);
-                this.user = response.user?._user;
+                userStore.createUser(userMapper(response.user?._user));
             } catch (err) {
                 console.log(err);
                 this.error = err.message;

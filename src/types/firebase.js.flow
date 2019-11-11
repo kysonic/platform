@@ -1,0 +1,28 @@
+// @flow
+
+export type FireBaseUserMetadataType = {
+    creationTime: number,
+    lastSignInTime: number,
+}
+
+export type FireBaseUserProviderType = {
+    displayName: string | null,
+    email: string,
+    phoneNumber: string | null,
+    photoURL?: string | null,
+    providerId: string,
+    uid: string
+}
+
+export type FireBaseUserType = {
+    displayName: string | null,
+    email: string | null,
+    emailVerified: boolean,
+    isAnonymous: boolean,
+    metadata: FireBaseUserMetadataType,
+    phoneNumber: string | null,
+    photoURL?: string | null,
+    providerData: Array<FireBaseUserProviderType>,
+    providerId: string,
+    uid: string
+}

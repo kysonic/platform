@@ -18,11 +18,14 @@ export type ReactNodeWithoutStrings = React.ChildrenArray<
 
 export type UserType = {
     id: string,
-    email: string,
-    name?: string,
+    fbid: string,
+    email: string | null,
+    name?: string | null,
     startedCourses?: Array<string>,
     completedCourses?: Array<string>,
     exoIndex?: number,
-    birthData?: string,
-    avatar?: string
+    birthDate?: string,
+    avatar?: string | null
 }
+
+
