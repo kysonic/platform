@@ -5,16 +5,16 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import config from '@config';
 import userStore from './user';
+import {BaseStoreFactory, BaseStoreDecorators} from './base';
 import {userMapper} from '@services/firebase-auth-mapper';
 import {verifyPhone} from '@services/firebase-auth-phone';
 
+import type {BaseStoreType} from './base';
+
 export type AuthStoreType = {
-    error: string,
-    isLoading: boolean,
     verificationId: string | null,
     isAuth: boolean,
 
-    setIsLoading: (isLoading: boolean) => void,
     register: (email: string, password: string) => Promise<any>,
     login: (email: string, password: string) => Promise<any>,
     loginWithGoogle: () => Promise<any>,
@@ -22,65 +22,49 @@ export type AuthStoreType = {
     loginWithPhone: (phone: string) => Promise<any>,
     confirmPhoneCode: (code: string) => Promise<any>,
     logout: () => Promise<any>,
-}
+};
 
-export function Auth() {
-    const store: AuthStoreType = {
-        error: '',
-        isLoading: false,
+export function AuthStoreFactory(): AuthStoreType {
+    return {
         verificationId: null,
 
         get isAuth() {
             return !!userStore.user;
         },
 
-        setIsLoading(isLoading: boolean): void {
-            this.isLoading = isLoading;
-        },
-
         register: flow(function *(email: string, password: string) {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 const response = yield auth().createUserWithEmailAndPassword(email, password);
                 userStore.upsertUser(userMapper(response.user?._user));
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                return this.handleError(err);
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
 
         login: flow(function *(email: string, password: string) {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 yield auth().signInWithEmailAndPassword(email, password);
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                return this.handleError(err);
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
 
         logout: flow(function *() {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 yield auth().signOut();
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                return this.handleError(err);
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
 
         loginWithGoogle: flow(function *() {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 yield GoogleSignin.configure({
                     webClientId: config.google?.webClient?.id,
@@ -92,16 +76,13 @@ export function Auth() {
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
                 userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                return this.handleError();
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
 
         loginWithFacebook: flow(function *() {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 const result = yield LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -119,55 +100,58 @@ export function Auth() {
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
                 userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                return this.handleError(err);
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
 
         loginWithPhone: flow(function *(phone: string) {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 const phoneSnapshot = yield verifyPhone(phone);
                 this.verificationId = phoneSnapshot.verificationId;
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                return this.handleError();
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
 
         confirmPhoneCode: flow(function *(code: string) {
-            this.isLoading = true;
-            this.error = '';
+            this.startRequest();
             try {
                 const credential = yield auth.PhoneAuthProvider.credential(this.verificationId, code);
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
                 userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
+                this.verificationId = '';
             } catch (err) {
                 this.handleError(err);
             }
-            this.isLoading = false;
-            return false;
+            this.endRequest();
         }),
     };
+}
 
-    decorate(store, {
-        user: observable,
-        error: observable,
-        isLoading: observable,
+export function AuthStoreDecorators(): any {
+    return {
         verificationId: observable,
         isAuth: computed,
+
         setIsLoading: action,
         register: action,
         login: action,
+        logout: action,
         loginWithGoogle: action,
-    });
-
-    return store;
+        loginWithFacebook: action,
+        loginWithPhone: action,
+        confirmPhoneCode: action,
+    };
 }
 
-export default Auth();
+export function AuthStore(): any {
+    return decorate(
+        Object.assign(AuthStoreFactory(), BaseStoreFactory()),
+        Object.assign(AuthStoreDecorators(), BaseStoreDecorators())
+    );
+}
+
+export default AuthStore();

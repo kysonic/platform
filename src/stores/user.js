@@ -43,6 +43,7 @@ export type UserStoreType = {
     isLoading: boolean,
     error: string,
 
+    clearUser: () => void,
     handleError: (err: Error) => void,
     setUserFromDocRef: (err: DocumentReference) => Promise<any>,
     createUser: (user: UserType) => Promise<any>,
@@ -73,7 +74,7 @@ export function UserStore() {
 
         createUser: flow(function *(user: UserType) {
             try {
-                const userDocRef = yield firestore().collection(USER_COLLECTION_NAME).add(Object.assign(DEFAULT_USER, user));
+                const userDocRef = yield firestore().collection(USER_COLLECTION_NAME).add(Object.assign({}, DEFAULT_USER, user));
                 this.setUserFromDocRef(userDocRef);
             } catch (err) {
                 this.handleError(err);
@@ -103,15 +104,14 @@ export function UserStore() {
                         return this.updateUser(userDocRef.id, user);
                     }
                 }
-
                 if (user.phone) {
                     const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
                         .where('phone', '==', user.phone)
                         .get();
 
                     if (querySnapshot.size) {
-                        let userDocRef = querySnapshot.docs?.[0];
-                        return this.updateUser(userDocRef.id, user);
+                        let userDoc = querySnapshot.docs?.[0];
+                        return this.updateUser(userDoc.id, user);
                     }
                 }
 
@@ -123,7 +123,6 @@ export function UserStore() {
         }),
 
         getUser: flow(function * (firebaseUid: string) {
-            console.log('GET USER', firebaseUid);
             try {
                 if (!firebaseUid) {
                     throw new Error('User id not found!');
@@ -139,9 +138,7 @@ export function UserStore() {
                 this.user = userDoc.data();
                 this.user.id = userDoc.id;
 
-                console.log(this.user);
             } catch (err) {
-                console.log(err);
                 this.error = err.message;
             }
 

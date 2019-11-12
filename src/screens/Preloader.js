@@ -13,7 +13,6 @@ const PreloaderScreen = ({navigation}) => {
                 userStore.clearUser();
                 return navigation.navigate('Auth');
             }
-            console.log('Get USER', data);
             userStore.getUser(data._user?.uid);
             navigation.navigate('Home');
         });
