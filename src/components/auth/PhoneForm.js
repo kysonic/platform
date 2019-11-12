@@ -53,7 +53,7 @@ const PhoneForm = ({style = {}, title}: PropsType) => {
                 ) : null
             }
             {
-                !authStore.phoneResponse ? (
+                !authStore.verificationId ? (
                     <FloatIcon icon="check" isShown={phoneReady}>
                         <TextInputMask
                             placeholder = "+X (XXX) XXX XX XX"
@@ -69,12 +69,12 @@ const PhoneForm = ({style = {}, title}: PropsType) => {
                     </FloatIcon>
                 ) : null
             }
-            {phoneReady && !authStore.phoneResponse ? (
+            {phoneReady && !authStore.verificationId ? (
                 <Button style={styles.button} rounded block onPress={sendRequest}>
                     <Text>Login</Text>
                 </Button>
             ) : null}
-            {authStore.phoneResponse ? (
+            {authStore.verificationId ? (
                 <FloatIcon icon="check" isShown={codeReady}>
                     <TextInputMask
                         placeholder = "Enter verification code"
@@ -89,7 +89,7 @@ const PhoneForm = ({style = {}, title}: PropsType) => {
                     />
                 </FloatIcon>
             ) : null}
-            {codeReady && authStore.phoneResponse ? (
+            {codeReady && authStore.verificationId ? (
                 <Button style={styles.button} rounded block onPress={verifyCode}>
                     <Text>Verify Code</Text>
                 </Button>

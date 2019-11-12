@@ -26,10 +26,11 @@ import type {FireBaseUserType} from '@types/firebase';
  *   "uid": "96dcxiWBBkRQZeMcMF05U988Dxl2"
 */
 
-export function userMapper({uid, email, displayName, photoURL}: FireBaseUserType) {
+export function userMapper({uid, email, displayName, photoURL, providerData, phoneNumber}: FireBaseUserType) {
     return removeEmpty({
-        authId: uid,
-        email: email,
+        authId: [uid],
+        email: email || providerData[0].email,
+        phone: phoneNumber,
         name: displayName,
         avatar: photoURL,
     });

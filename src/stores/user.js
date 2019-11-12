@@ -1,24 +1,27 @@
 // @flow
-import {observable, action, flow, decorate} from 'mobx';
+import {observable, action, flow, decorate, toJS} from 'mobx';
 import firestore from '@react-native-firebase/firestore';
+import {mergeWithArrayConcat} from '@utils/object';
 
 import type {UserType} from '@types/base';
 import type {DocumentReference} from '@react-native-firebase/firestore/';
 
 export const USER_COLLECTION_NAME = 'users';
+export const DEFAULT_USER = {
+    id: '',
+    authId: [],
+    email: '',
+    name: '',
+    startedCourses: [],
+    completedCourses: [],
+    ecoIndex: 0,
+    birthDate: '',
+    avatar: '',
+    phone: '',
+};
 
 export function User() {
-    const store: UserType = {
-        id: '',
-        authId: '',
-        email: '',
-        name: '',
-        startedCourses: [],
-        completedCourses: [],
-        ecoIndex: 0,
-        birthDate: '',
-        avatar: '',
-    };
+    const store: UserType = DEFAULT_USER;
 
     decorate(store, {
         id: observable,
@@ -41,7 +44,7 @@ export type UserStoreType = {
     error: string,
 
     handleError: (err: Error) => void,
-    setUserFromDocRef: (docRef: DocumentReference) => Promise<any>,
+    setUserFromDocRef: (err: DocumentReference) => Promise<any>,
     createUser: (user: UserType) => Promise<any>,
     updateUser: (user: UserType) => Promise<any>,
     upsertUser: (user: UserType) => Promise<any>,
@@ -65,49 +68,53 @@ export function UserStore() {
             const userDoc = yield userDocRef.get();
             this.user = userDoc.data();
             this.user.id = userDoc.id;
+            console.log(this.user);
         }),
 
         createUser: flow(function *(user: UserType) {
             try {
-                const docRef = yield firestore().collection(USER_COLLECTION_NAME).add(user);
-                console.log(docRef,44);
-                this.setUserFromDocRef(docRef);
+                const userDocRef = yield firestore().collection(USER_COLLECTION_NAME).add(Object.assign(DEFAULT_USER, user));
+                this.setUserFromDocRef(userDocRef);
             } catch (err) {
                 this.handleError(err);
             }
         }),
 
         updateUser: flow(function *(id, user) {
-            let userDocRef = yield firestore().collection(USER_COLLECTION_NAME).doc(id);
-            console.log(userDocRef, 61);
-            if (userDocRef && userDocRef.id) {
-                const userData = userDocRef.data();
-                console.log(userData, 71);
-                const updatedUserData = Object.assign(userData, user);
-                console.log(updatedUserData, 81);
-                userDocRef = yield userDocRef.set(updatedUserData);
-                console.log(userDocRef, 91);
+            const userDocRef = yield firestore().collection(USER_COLLECTION_NAME).doc(id);
+            const userDoc = yield userDocRef.get();
+            if (userDoc && userDoc.id) {
+                const userData = userDoc.data();
+                const updatedUserData = mergeWithArrayConcat(userData, user);
+                yield userDocRef.set(updatedUserData);
                 this.setUserFromDocRef(userDocRef);
             }
         }),
 
         upsertUser: flow(function *(user: UserType) {
             try {
-                console.log(user.email,1);
                 if (user.email) {
-                    console.log(2);
                     const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
                         .where('email', '==', user.email)
                         .get();
-                    console.log(querySnapshot.size, 3);
+
                     if (querySnapshot.size) {
-                        console.log(4);
                         let userDocRef = querySnapshot.docs?.[0];
-                        console.log(userDocRef,5);
                         return this.updateUser(userDocRef.id, user);
                     }
                 }
-                console.log('BACKWAY');
+
+                if (user.phone) {
+                    const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
+                        .where('phone', '==', user.phone)
+                        .get();
+
+                    if (querySnapshot.size) {
+                        let userDocRef = querySnapshot.docs?.[0];
+                        return this.updateUser(userDocRef.id, user);
+                    }
+                }
+
                 yield this.createUser(user);
 
             } catch (err) {
@@ -116,21 +123,23 @@ export function UserStore() {
         }),
 
         getUser: flow(function * (firebaseUid: string) {
+            console.log('GET USER', firebaseUid);
             try {
                 if (!firebaseUid) {
                     throw new Error('User id not found!');
                 }
                 const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
-                    .where('authId', '==', firebaseUid)
+                    .where('authId', 'array-contains', firebaseUid)
                     .get();
-                const userDocRef = querySnapshot.docs?.[0];
-                if (!userDocRef) {
+
+                const userDoc = querySnapshot.docs?.[0];
+                if (!userDoc) {
                     throw new Error('User not found!');
                 }
-                this.user = userDocRef.data();
-                this.user.id = userDocRef.id;
+                this.user = userDoc.data();
+                this.user.id = userDoc.id;
 
-                return this.user;
+                console.log(this.user);
             } catch (err) {
                 console.log(err);
                 this.error = err.message;

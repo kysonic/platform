@@ -5,12 +5,13 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import config from '@config';
 import userStore from './user';
-import {userMapper} from '@services/firebase-mapper';
+import {userMapper} from '@services/firebase-auth-mapper';
+import {verifyPhone} from '@services/firebase-auth-phone';
 
 export type AuthStoreType = {
     error: string,
     isLoading: boolean,
-    phoneResponse: Object | null,
+    verificationId: string | null,
     isAuth: boolean,
 
     setIsLoading: (isLoading: boolean) => void,
@@ -27,7 +28,7 @@ export function Auth() {
     const store: AuthStoreType = {
         error: '',
         isLoading: false,
-        phoneResponse: null,
+        verificationId: null,
 
         get isAuth() {
             return !!userStore.user;
@@ -116,7 +117,7 @@ export function Auth() {
 
                 const credential = auth.FacebookAuthProvider.credential(data.accessToken);
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
-                this.user = firebaseUserCredential.user;
+                userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
             } catch (err) {
                 console.log(err);
                 this.error = err.message;
@@ -129,8 +130,8 @@ export function Auth() {
             this.isLoading = true;
             this.error = '';
             try {
-                this.phoneResponse = yield auth().signInWithPhoneNumber(phone);
-                console.log(this.phoneResponse);
+                const phoneSnapshot = yield verifyPhone(phone);
+                this.verificationId = phoneSnapshot.verificationId;
             } catch (err) {
                 console.log(err);
                 this.error = err.message;
@@ -143,10 +144,11 @@ export function Auth() {
             this.isLoading = true;
             this.error = '';
             try {
-                this.user = yield this.phoneResponse.confirm(code);
+                const credential = yield auth.PhoneAuthProvider.credential(this.verificationId, code);
+                const firebaseUserCredential = yield auth().signInWithCredential(credential);
+                userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
             } catch (err) {
-                console.log(err);
-                this.error = err.message;
+                this.handleError(err);
             }
             this.isLoading = false;
             return false;
@@ -157,7 +159,7 @@ export function Auth() {
         user: observable,
         error: observable,
         isLoading: observable,
-        phoneResponse: observable.ref,
+        verificationId: observable,
         isAuth: computed,
         setIsLoading: action,
         register: action,
