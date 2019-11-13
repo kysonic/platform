@@ -1,10 +1,12 @@
 // @flow
-import {observable, action, flow, decorate, toJS} from 'mobx';
+import {observable, action, flow, decorate} from 'mobx';
 import firestore from '@react-native-firebase/firestore';
 import {mergeWithArrayConcat} from '@utils/object';
+import {BaseStoreFactory, BaseStoreDecorators} from './base';
+import {assign} from '@utils/object';
 
 import type {UserType} from '@types/base';
-import type {DocumentReference} from '@react-native-firebase/firestore/';
+import type {DocumentReference, DocumentSnapshot, Query} from '@react-native-firebase/firestore/';
 
 export const USER_COLLECTION_NAME = 'users';
 export const DEFAULT_USER = {
@@ -20,10 +22,12 @@ export const DEFAULT_USER = {
     phone: '',
 };
 
-export function User() {
-    const store: UserType = DEFAULT_USER;
+export function UserFactory(): UserType {
+    return Object.assign({}, DEFAULT_USER);
+}
 
-    decorate(store, {
+export function UserDecorators() {
+    return {
         id: observable,
         authId: observable,
         email: observable,
@@ -33,127 +37,149 @@ export function User() {
         ecoIndex: observable,
         birthDate: observable,
         avatar: observable,
-    });
+    };
+}
 
-    return store;
+export function User() {
+    return decorate(UserFactory(), UserDecorators());
 }
 
 export type UserStoreType = {
     user: UserType | null,
-    isLoading: boolean,
-    error: string,
 
     clearUser: () => void,
-    handleError: (err: Error) => void,
     setUserFromDocRef: (err: DocumentReference) => Promise<any>,
     createUser: (user: UserType) => Promise<any>,
-    updateUser: (user: UserType) => Promise<any>,
+    updateUser: (id: string, user: UserType) => Promise<any>,
     upsertUser: (user: UserType) => Promise<any>,
     getUser: (user: UserType) => Promise<any>
 }
 
-export function UserStore() {
-    const store: UserStoreType = {
+export function UserStoreFactory(): UserStoreType {
+    return {
         user: User(),
 
-        isLoading: false,
-
-        error: '',
-
-        handleError(err: Error) {
-            console.log(err);
-            this.error = err.message;
-        },
-
         setUserFromDocRef: flow(function *(userDocRef: DocumentReference) {
-            const userDoc = yield userDocRef.get();
-            this.user = userDoc.data();
-            this.user.id = userDoc.id;
-            console.log(this.user);
+            this.startRequest();
+
+            try {
+                const userDoc: DocumentSnapshot = yield userDocRef.get();
+                this.user = userDoc.data();
+                this.user.id = userDoc.id;
+            } catch (err) {
+                return this.handleError(err);
+            }
+
+            this.endRequest();
         }),
 
-        createUser: flow(function *(user: UserType) {
+        createUser: async function (user: UserType) {
+            this.startRequest();
+
             try {
-                const userDocRef = yield firestore().collection(USER_COLLECTION_NAME).add(Object.assign({}, DEFAULT_USER, user));
+                const userDocRef: DocumentReference = await firestore().collection(USER_COLLECTION_NAME).add(Object.assign({}, DEFAULT_USER, user));
                 this.setUserFromDocRef(userDocRef);
             } catch (err) {
-                this.handleError(err);
+                return this.handleError(err);
             }
-        }),
 
-        updateUser: flow(function *(id, user) {
-            const userDocRef = yield firestore().collection(USER_COLLECTION_NAME).doc(id);
-            const userDoc = yield userDocRef.get();
-            if (userDoc && userDoc.id) {
-                const userData = userDoc.data();
-                const updatedUserData = mergeWithArrayConcat(userData, user);
-                yield userDocRef.set(updatedUserData);
-                this.setUserFromDocRef(userDocRef);
-            }
-        }),
+            this.endRequest();
+        },
 
-        upsertUser: flow(function *(user: UserType) {
+        updateUser: async function (id: string, user: UserType) {
+            this.startRequest();
+
             try {
+                const userDocRef: DocumentReference = await firestore().collection(USER_COLLECTION_NAME).doc(id);
+                const userDoc: DocumentSnapshot = await userDocRef.get();
+
+                if (userDoc && userDoc.id) {
+                    const userData = userDoc.data();
+                    const updatedUserData = mergeWithArrayConcat(userData, user);
+                    await userDocRef.set(updatedUserData);
+                    this.setUserFromDocRef(userDocRef);
+                }
+
+            } catch (err) {
+                return this.handleError(err);
+            }
+
+            this.endRequest();
+        },
+
+        upsertUser: async function (user: UserType) {
+            this.startRequest();
+
+            try {
+
                 if (user.email) {
-                    const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
+                    const querySnapshot: Query = await firestore().collection(USER_COLLECTION_NAME)
                         .where('email', '==', user.email)
                         .get();
 
                     if (querySnapshot.size) {
-                        let userDocRef = querySnapshot.docs?.[0];
-                        return this.updateUser(userDocRef.id, user);
-                    }
-                }
-                if (user.phone) {
-                    const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
-                        .where('phone', '==', user.phone)
-                        .get();
-
-                    if (querySnapshot.size) {
-                        let userDoc = querySnapshot.docs?.[0];
+                        let userDoc: DocumentSnapshot = querySnapshot.docs?.[0];
                         return this.updateUser(userDoc.id, user);
                     }
                 }
 
-                yield this.createUser(user);
+                if (user.phone) {
+                    const querySnapshot: Query = await firestore().collection(USER_COLLECTION_NAME)
+                        .where('phone', '==', user.phone)
+                        .get();
+
+                    if (querySnapshot.size) {
+                        let userDoc: DocumentSnapshot = querySnapshot.docs?.[0];
+                        return this.updateUser(userDoc.id, user);
+                    }
+                }
+
+                await this.createUser(user);
 
             } catch (err) {
-                this.handleError(err);
+                return this.handleError(err);
             }
-        }),
+
+            this.endRequest();
+        },
 
         getUser: flow(function * (firebaseUid: string) {
+            this.startRequest();
+
             try {
+
                 if (!firebaseUid) {
                     throw new Error('User id not found!');
                 }
-                const querySnapshot = yield firestore().collection(USER_COLLECTION_NAME)
+
+                const querySnapshot: Query = yield firestore().collection(USER_COLLECTION_NAME)
                     .where('authId', 'array-contains', firebaseUid)
                     .get();
 
-                const userDoc = querySnapshot.docs?.[0];
+                const userDoc: DocumentSnapshot = querySnapshot.docs?.[0];
+
                 if (!userDoc) {
                     throw new Error('User not found!');
                 }
+
                 this.user = userDoc.data();
                 this.user.id = userDoc.id;
 
             } catch (err) {
-                this.error = err.message;
+                return this.handleError(err);
             }
-
-            return false;
+            this.endRequest();
         }),
 
         clearUser() {
             this.user = null;
         },
     };
+}
 
-    decorate(store, {
+export function UserStoreDecorators() {
+    return {
         user: observable.ref,
-        isLoading: observable,
-        error: observable,
 
         upsertUser: action,
         createUser: action,
@@ -161,9 +187,14 @@ export function UserStore() {
         getUser: action,
         handleError: action,
         setUserFromDocRef: action,
-    });
+    };
+}
 
-    return store;
+export function UserStore() {
+    return decorate(
+        assign(UserStoreFactory(), BaseStoreFactory()),
+        assign(UserStoreDecorators(), BaseStoreDecorators())
+    );
 }
 
 export default UserStore();

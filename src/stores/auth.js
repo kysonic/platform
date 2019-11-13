@@ -8,8 +8,7 @@ import userStore from './user';
 import {BaseStoreFactory, BaseStoreDecorators} from './base';
 import {userMapper} from '@services/firebase-auth-mapper';
 import {verifyPhone} from '@services/firebase-auth-phone';
-
-import type {BaseStoreType} from './base';
+import {assign} from '@utils/object';
 
 export type AuthStoreType = {
     verificationId: string | null,
@@ -131,7 +130,7 @@ export function AuthStoreFactory(): AuthStoreType {
     };
 }
 
-export function AuthStoreDecorators(): any {
+export function AuthStoreDecorators() {
     return {
         verificationId: observable,
         isAuth: computed,
@@ -147,10 +146,10 @@ export function AuthStoreDecorators(): any {
     };
 }
 
-export function AuthStore(): any {
+export function AuthStore() {
     return decorate(
-        Object.assign(AuthStoreFactory(), BaseStoreFactory()),
-        Object.assign(AuthStoreDecorators(), BaseStoreDecorators())
+        assign(AuthStoreFactory(), BaseStoreFactory()),
+        assign(AuthStoreDecorators(), BaseStoreDecorators())
     );
 }
 
