@@ -19,6 +19,7 @@ const FloatIcon = ({children, style, iconStyle, isShown, icon = 'check'}: PropsT
     (height: number);
 
     return (
+        // $FlowFixMe
         <View style={[styles.container, style]} onLayout={(event) => setHeight(event.nativeEvent?.layout?.height)}>
             {children}
             {isShown ? (

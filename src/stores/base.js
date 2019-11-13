@@ -29,6 +29,7 @@ export function BaseStoreFactory(): BaseStoreType {
         handleError(err: Error) {
             console.log(err);
             this.error = err.message;
+            this.isLoading = false;
         },
 
         startRequest() {

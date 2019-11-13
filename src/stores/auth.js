@@ -75,7 +75,7 @@ export function AuthStoreFactory(): AuthStoreType {
                 const firebaseUserCredential = yield auth().signInWithCredential(credential);
                 userStore.upsertUser(userMapper(firebaseUserCredential.user?._user));
             } catch (err) {
-                return this.handleError();
+                return this.handleError(err);
             }
             this.endRequest();
         }),
@@ -110,7 +110,7 @@ export function AuthStoreFactory(): AuthStoreType {
                 const phoneSnapshot = yield verifyPhone(phone);
                 this.verificationId = phoneSnapshot.verificationId;
             } catch (err) {
-                return this.handleError();
+                return this.handleError(err);
             }
             this.endRequest();
         }),
