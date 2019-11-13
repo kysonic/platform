@@ -181,11 +181,6 @@ export function UserStoreDecorators() {
     return {
         user: observable.ref,
 
-        upsertUser: action,
-        createUser: action,
-        updateUser: action,
-        getUser: action,
-        handleError: action,
         setUserFromDocRef: action,
     };
 }
