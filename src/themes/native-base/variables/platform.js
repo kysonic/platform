@@ -293,6 +293,7 @@ export default {
   // Text
   textColor: '#000',
   inverseTextColor: '#fff',
+  weakText: '#b1b1b1',
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;

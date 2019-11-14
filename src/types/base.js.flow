@@ -5,7 +5,7 @@ import {View} from 'react-native';
 type ViewProps = React.ElementProps<typeof View>;
 type ViewStyleProp = $PropertyType<ViewProps, 'style'>;
 
-export type StyleSheetType = { [string]: $ReadOnly<ViewStyleProp >};
+export type StyleSheetType = { [string]: $ReadOnly<ViewStyleProp>};
 
 export type ModeType = "login" | "register";
 
@@ -23,7 +23,7 @@ export type UserType = {
     name?: string | null,
     startedCourses?: Array<string>,
     completedCourses?: Array<string>,
-    exoIndex?: number,
+    ecoIndex?: number,
     birthDate?: string,
     avatar?: string | null,
     phone?: string | null,

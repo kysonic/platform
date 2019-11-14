@@ -3,16 +3,21 @@ import React from 'react';
 import {Body, Button, Header, Icon, Right, Title, ActionSheet} from 'native-base';
 import authStore from '@stores/auth';
 
-const BUTTONS = ['Logout', 'Cancel'];
-const CANCEL_INDEX = 1;
+import type {_NavigationInjectedProps} from 'react-navigation';
+
+const BUTTONS = ['Profile', 'Logout', 'Cancel'];
+const CANCEL_INDEX = 2;
 
 const actions = [
-    () => {
+    (navigation: _NavigationInjectedProps): void => {
+        navigation.navigate('Profile');
+    },
+    (navigation: _NavigationInjectedProps): void => {
         authStore.logout();
     },
 ];
 
-const openActionSheet = () => {
+const openActionSheet = (navigation: _NavigationInjectedProps): void => {
     ActionSheet.show(
         {
             options: BUTTONS,
@@ -21,24 +26,25 @@ const openActionSheet = () => {
         },
         buttonIndex => {
             if (actions[buttonIndex] && typeof actions[buttonIndex] === 'function') {
-                actions[buttonIndex]();
+                actions[buttonIndex](navigation);
             }
         }
     );
 };
 
 type PropsType = {
-    title?: string
+    title?: string,
+    navigation: _NavigationInjectedProps
 };
 
-const AppHeader = ({title = ''} : PropsType) => {
+const AppHeader = ({title = '', navigation} : PropsType) => {
     return (
         <Header>
             <Body>
                 <Title>{title}</Title>
             </Body>
             <Right>
-                <Button transparent onPress={openActionSheet}>
+                <Button transparent onPress={() => openActionSheet(navigation)}>
                     <Icon type="Feather" name="more-vertical" />
                 </Button>
             </Right>
