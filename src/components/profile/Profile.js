@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
     },
     ecoIndex: {
         padding: 20,
-        textAlign: 'center',
     },
     ecoIndexText: {
-        fontSize: 28,
+        fontSize: 25,
         color: theme.brandPrimary,
         textTransform: 'uppercase',
+        textAlign: 'center',
     },
     avatar: {
 
