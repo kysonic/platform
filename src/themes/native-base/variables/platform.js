@@ -1,6 +1,5 @@
 import color from 'color';
 import { Platform, Dimensions, PixelRatio } from 'react-native';
-// $FlowFixMe
 import { PLATFORM } from './commonColor';
 
 const deviceHeight = Dimensions.get('window').height;
@@ -124,7 +123,7 @@ export default {
   CheckboxIconSize: platform === PLATFORM.IOS ? 21 : 16,
   CheckboxIconMarginTop: platform === PLATFORM.IOS ? undefined : 1,
   CheckboxFontSize: platform === PLATFORM.IOS ? 23 / 0.9 : 17,
-  checkboxBgColor: '#039BE5',
+  checkboxBgColor: '#12b582',
   checkboxSize: 20,
   checkboxTickColor: '#fff',
   checkboxDefaultColor: 'transparent',
@@ -134,7 +133,7 @@ export default {
   brandPrimary: platform === PLATFORM.IOS ? '#2cb56f' : '#12b582',
   brandPrimaryDark: '#135a36',
   brandSecondary: '#23b4b5',
-  brandInfo: '#62B1F6',
+  brandInfo: '#50b586',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
@@ -186,16 +185,16 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#12b582',
   footerPaddingBottom: 0,
 
   // FooterTab
-  tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
+  tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#fff',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
   activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  sTabBarActiveTextColor: '#007aff',
+  sTabBarActiveTextColor: '#fff',
   tabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
+  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#12b582',
 
   // Header
   toolbarBtnColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',
@@ -280,8 +279,8 @@ export default {
 
   // Tab
   tabBarDisabledTextColor: '#BDBDBD',
-  tabDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
-  topTabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
+  tabDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#12b582',
+  topTabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#12b582',
   topTabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   topTabBarBorderColor: platform === PLATFORM.IOS ? '#a7a6ab' : '#fff',
   topTabBarActiveBorderColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
@@ -293,7 +292,8 @@ export default {
   // Text
   textColor: '#000',
   inverseTextColor: '#fff',
-  weakText: '#b1b1b1',
+  grayText: '#434343',
+  weakText: '#949494',
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;
