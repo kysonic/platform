@@ -142,8 +142,8 @@ const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataProp
 
 const editableProfileDataStyles: StyleSheetType = StyleSheet.create({
     container: {
-        padding: 10
-    }
+        padding: 10,
+    },
 });
 
 export default EditableProfileData;
