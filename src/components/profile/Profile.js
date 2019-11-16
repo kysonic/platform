@@ -7,6 +7,7 @@ import userStore from '@stores/user';
 import {Container, Content, Footer, FooterTab, Button, Text} from 'native-base';
 import theme from '@themes/native-base/variables/platform';
 import EditableProfileData from './EditableProfileData';
+import {capitalizeFirst} from '@utils/string';
 
 type PropsType = {
     name: string,
@@ -54,11 +55,18 @@ const Profile = () => {
         if (!editMode) {
             return setEditMode(true);
         }
+
+        userStore.saveUser();
+        setEditMode(false);
     };
 
-    const onChange = () => {
-        console.log('Change');
-    }
+    const onChange = (name: string, value: mixed): void => {
+        const setUserMethodName = `setUser${capitalizeFirst(name)}`;
+
+        if (userStore[setUserMethodName] && typeof userStore[setUserMethodName] === 'function') {
+            userStore[setUserMethodName](value);
+        }
+    };
 
     return useObserver(
         () => {

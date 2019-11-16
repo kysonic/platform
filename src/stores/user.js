@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import {mergeWithArrayConcat} from '@utils/object';
 import {BaseStoreFactory, BaseStoreDecorators} from './base';
 import {assign} from '@utils/object';
+import { DateTime } from 'luxon';
 
 import type {UserType} from '@types/base';
 import type {DocumentReference, DocumentSnapshot, Query} from '@react-native-firebase/firestore/';
@@ -174,12 +175,24 @@ export function UserStoreFactory(): UserStoreType {
         clearUser() {
             this.user = null;
         },
+
+        saveUser() {
+            this.updateUser(this.user.id, this.user);
+        },
+
+        setUserName(name: string): void {
+            this.user.name = name;
+        },
+
+        setUserBirthDate(birthDate: Date): void {
+            this.user.birthDate = DateTime.fromJSDate(birthDate).toFormat('yyyy-MM-dd');
+        },
     };
 }
 
 export function UserStoreDecorators() {
     return {
-        user: observable.ref,
+        user: observable,
 
         setUserFromDocRef: action,
     };

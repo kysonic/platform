@@ -2,10 +2,12 @@
 import React, {useState, useCallback} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
+import {DateTime} from 'luxon';
 
 import type {StyleSheetType} from '@types/base';
 import type {UserType} from '@types/base';
-import {Input} from 'native-base';
+import {Form, Input, Item} from 'native-base';
+import DatePicker from '@components/ui/DatePicker';
 
 type DataItemPropsType = {
     label: string,
@@ -46,24 +48,47 @@ const dataItemStyles:StyleSheetType = StyleSheet.create({
     },
 });
 
-const FormField = ({type, label, value, onChange}) => {
-    switch (type) {
-        case 'text':
-            return (
-                <Input style={formFieldStyles.input} value={value} placeholder={label} onChangeText={onChange} />
-            );
-        case 'date':
-            return null;
-        default:
-            return null;
-    }
+type FormFieldPropsType = {
+    name: string,
+    type: string,
+    label: string,
+    value: mixed,
+    onChange: () => void,
+};
+
+const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => {
+    const Element = (type: string) => {
+        switch (type) {
+            case 'text':
+                return (
+                    <Input style={formFieldStyles.input} value={value} placeholder={label} onChangeText={(v) => onChange(name, v)} />
+                );
+            case 'date':
+                return (
+                    <DatePicker
+                        value={value}
+                        placeholder="Date of birth"
+                        format="yyyy-MM-dd"
+                        onDateChange={(v) => onChange(name, v)}
+                    />
+                );
+            default:
+                return null;
+        }
+    };
+
+    return (
+        <Item style={formFieldStyles.container}>
+            {Element(type)}
+        </Item>
+    );
 };
 
 const formFieldStyles = StyleSheet.create({
-    input: {
-
-    }
-})
+    container: {
+        marginTop: 10,
+    },
+});
 
 type PropertyType = {
     label: string,
@@ -103,20 +128,21 @@ type EditableProfileDataPropsType = {
 }
 
 const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataPropsType) => {
+    const Wrapper = editMode ? Form : View;
     return (
-        <View style={editableProfileDataStyles.container}>
+        <Wrapper style={editableProfileDataStyles.container}>
             {Object.entries(PROPERTY_LIST).map(([key, value]: [string, Object]) => (
                     (editMode && value.editable) ?
-                    <FormField key={key} {...value} value={user[key]} onChange={onChange} /> :
+                    <FormField key={key} {...value} name={key} value={user[key]} onChange={onChange} /> :
                     (!editMode && value.showable ? <DataItem key={key} label={value.label} value={user[key]} /> : null)
             ))}
-        </View>
+        </Wrapper>
     );
 };
 
 const editableProfileDataStyles: StyleSheetType = StyleSheet.create({
     container: {
-
+        padding: 10
     }
 });
 
