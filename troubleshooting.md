@@ -52,3 +52,8 @@ n\a - https://github.com/react-native-community/react-native-text-input-mask/iss
 
 Delete ./android/app/build
 Go to ./android and run `./gradlew clean`
+
+
+### Clean the app
+
+https://medium.com/@abhisheknalwaya/how-to-clear-react-native-cache-c435c258834e
