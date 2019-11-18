@@ -53,7 +53,15 @@ n\a - https://github.com/react-native-community/react-native-text-input-mask/iss
 Delete ./android/app/build
 Go to ./android and run `./gradlew clean`
 
-
 ### Clean the app
 
 https://medium.com/@abhisheknalwaya/how-to-clear-react-native-cache-c435c258834e
+
+### Ios app doesn't run on emulator (just not starting make bundle)
+
+1. Go to xcode 
+2. Run app 
+3. Check error - "Cannot find Google-Service-Infor.plist"
+4. Remove previos version.
+5. Get new
+6. Add via right click on project and select "Add to project_name"

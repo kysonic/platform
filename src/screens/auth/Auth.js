@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Container, Content, Button, Text, Icon} from 'native-base';
 import {WithoutHeader} from '@utils/navigation';
 import theme from '@themes/native-base/variables/platform';
@@ -14,50 +14,50 @@ import heroVideo from '@assets/video/ix-hero.mp4';
 import type {StyleSheetType} from '@types/base';
 import type {_NavigationInjectedProps} from 'react-navigation';
 
+const { height } = Dimensions.get("window");
+
 type PropsType = {
     navigation: _NavigationInjectedProps
 }
 
 const AuthScreen = ({navigation}: PropsType) => {
     return (
-        <Container>
-            <Content contentContainerStyle={styles.container}>
-                <Video
-                    source={heroVideo}
-                    style={styles.backgroundVideo}
-                    fullscreen={true} muted={true}
-                    repeat={true}
-                    resizeMode="cover"
-                />
-                <View></View>
-                <View style={styles.centerGroup}>
-                    <Text style={styles.socialText}>Sign in</Text>
-                    <Button style={styles.button} onPress={() => navigation.navigate('AuthLoginPasswordSignIn')}>
-                        <Icon style={styles.buttonIcon} type="Feather" name="mail"/>
-                        <Text style={styles.buttonText}>Sing in with email</Text>
-                    </Button>
-                    <Hrwt text="OR" style={styles.hr}/>
-                    <Button style={[styles.button, styles.googleBtn]} onPress={() => authStore.loginWithGoogle()}>
-                        <Image style={styles.buttonImg} source={SocialIcons.google}></Image>
-                        <Text style={styles.buttonText}>Sing in with google</Text>
-                    </Button>
-                    <Button style={[styles.button, styles.facebookBtn]} onPress={() => authStore.loginWithFacebook()}>
-                        <Image style={styles.buttonImg} source={SocialIcons.facebook}></Image>
-                        <Text style={styles.buttonText}>Sing in with facebook</Text>
-                    </Button>
-                    <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('AuthLoginPasswordSignUp')}>
-                        <Text style={styles.createAccountText}>First time here?</Text>
-                        <Text style={[styles.createAccountText, styles.createAccountTextBold]}>Create an account</Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity style={styles.privacyPolicyContainer}
-                                      onPress={() => Linking.openURL('https://en.wikipedia.org/wiki/Privacy_policy')}>
-                        <Text style={styles.privacyPolicy}>Privacy policy</Text>
-                    </TouchableOpacity>
-                </View>
-            </Content>
-        </Container>
+        <View style={styles.container}>
+            <Video
+                source={heroVideo}
+                style={styles.backgroundVideo}
+                fullscreen={true} muted={true}
+                repeat={true}
+                resizeMode="cover"
+            />
+            <View></View>
+            <View style={styles.centerGroup}>
+                <Text style={styles.socialText}>Sign in</Text>
+                <Button style={styles.button} onPress={() => navigation.navigate('AuthLoginPasswordSignIn')}>
+                    <Icon style={styles.buttonIcon} type="Feather" name="mail"/>
+                    <Text style={styles.buttonText}>Sing in with email</Text>
+                </Button>
+                <Hrwt text="OR" style={styles.hr}/>
+                <Button style={[styles.button, styles.googleBtn]} onPress={() => authStore.loginWithGoogle()}>
+                    <Image style={styles.buttonImg} source={SocialIcons.google}></Image>
+                    <Text style={styles.buttonText}>Sing in with google</Text>
+                </Button>
+                <Button style={[styles.button, styles.facebookBtn]} onPress={() => authStore.loginWithFacebook()}>
+                    <Image style={styles.buttonImg} source={SocialIcons.facebook}></Image>
+                    <Text style={styles.buttonText}>Sing in with facebook</Text>
+                </Button>
+                <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('AuthLoginPasswordSignUp')}>
+                    <Text style={styles.createAccountText}>First time here?</Text>
+                    <Text style={[styles.createAccountText, styles.createAccountTextBold]}>Create an account</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
+                <TouchableOpacity style={styles.privacyPolicyContainer}
+                                  onPress={() => Linking.openURL('https://en.wikipedia.org/wiki/Privacy_policy')}>
+                    <Text style={styles.privacyPolicy}>Privacy policy</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 };
 
@@ -72,6 +72,8 @@ const styles: StyleSheetType = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0,
+        alignItems: 'stretch',
+        height: height,
     },
     centerGroup: {
         alignItems: 'center',
@@ -91,7 +93,7 @@ const styles: StyleSheetType = StyleSheet.create({
         height: 50,
         fontSize: 12,
         backgroundColor: theme.brandLight,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
             width: 0,
             height: 1,
