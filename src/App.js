@@ -10,7 +10,7 @@ import '@config/firebase.bootstrap';
 const App: () => React$Node = () => {
   return (
       <>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar barStyle="default" hidden={true} />
           <StyleProvider style={getTheme(platform)}>
               <Root>
                   <MainNavigator />

@@ -7,5 +7,5 @@
 
 ### Configuration
 
-Go to the src/config/ and copy index.example.js as index.js and configure your enviroment variables
+Go to the src/config/ and copy local.example.js as local.js and configure your environment variables
 

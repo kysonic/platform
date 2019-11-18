@@ -50,6 +50,10 @@ target 'trash' do
 
   pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'trashTests' do
     inherit! :search_paths
     # Pods for testing

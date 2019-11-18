@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.brentvatne.react.ReactVideoPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;

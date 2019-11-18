@@ -130,15 +130,15 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: platform === PLATFORM.IOS ? '#2cb56f' : '#12b582',
-  brandPrimaryDark: '#135a36',
+  brandPrimary: platform === PLATFORM.IOS ? '#ed1c24' : '#ed1c24',
+  brandPrimaryDark: '#ed1c24',
   brandSecondary: '#23b4b5',
   brandInfo: '#50b586',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
   brandDark: '#000',
-  brandLight: '#f4f4f4',
+  brandLight: '#fff',
 
   // Container
   containerBgColor: '#fff',
@@ -235,6 +235,9 @@ export default {
   get inputColorPlaceholder() {
     return '#575757';
   },
+
+  // Hr
+  lineColor: '#fff',
 
   // Line Height
   buttonLineHeight: 19,
