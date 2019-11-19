@@ -1,7 +1,7 @@
 // @flow
 import React, {useState} from 'react';
 import {Button, Form, Input, Item, Text} from 'native-base';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
 import authStore from '@stores/auth';
 import * as yup from 'yup';
@@ -23,10 +23,11 @@ type PropsType = {
     mode: ModeType,
     style?: StyleSheetType,
     BeforeButton?: () => any,
-    title: string
+    title: string,
+    onBack?: () => any,
 }
 
-const LoginPasswordForm = ({mode, BeforeButton, style = {}, title}: PropsType) => {
+const LoginPasswordForm = ({mode, BeforeButton, style = {}, title, onBack}: PropsType) => {
     const [errors, setErrors] = useState({});
     (errors: Errors);
     const [email, setEmail] = useState('');
@@ -62,7 +63,7 @@ const LoginPasswordForm = ({mode, BeforeButton, style = {}, title}: PropsType) =
         <Form style={[styles.form, style]}>
             <Text style={styles.title}>{title}</Text>
             <Item style={styles.item}>
-                <Input style={styles.input} value={email} placeholder="Email" onChangeText={(value) => setEmail(value)} />
+                <Input style={styles.input} keyboardType="email-address" value={email} placeholder="Email" onChangeText={(value) => setEmail(value)} />
                 {errors.email ? <Text style={styles.error}>{errors.email}</Text> : null}
             </Item>
             <Item style={styles.item}>
@@ -76,10 +77,13 @@ const LoginPasswordForm = ({mode, BeforeButton, style = {}, title}: PropsType) =
             }
             {BeforeButton ? <BeforeButton /> : null}
             <View style={styles.buttonContainer}>
-                <Button rounded block style={styles.button} onPress={modeAction}>
+                <Button block style={styles.button} onPress={modeAction}>
                     <Text>{!authStore.isLoading ? title : '...'}</Text>
                 </Button>
             </View>
+            <TouchableOpacity style={styles.back} onPress={() => onBack()}>
+                <Text style={styles.backText}>Back</Text>
+            </TouchableOpacity>
         </Form>
     ));
 };
@@ -92,7 +96,7 @@ const styles: StyleSheetType = StyleSheet.create({
     },
     title: {
         fontSize: 22,
-        color: theme.listNoteColor,
+        color: theme.inverseTextColor,
     },
     error: {
         marginTop: 0,
@@ -102,15 +106,21 @@ const styles: StyleSheetType = StyleSheet.create({
     item: {
         marginTop: 10,
     },
+    input: {
+        color: theme.inverseTextColor,
+    },
     buttonContainer: {
-        flex: 1,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
     },
     button: {
-        marginTop: 20,
-        width: '75%',
+        marginTop: 50,
+        padding: 50,
+    },
+    back: {
+        marginTop: 25,
+    },
+    backText: {
+        color: theme.inverseTextColor,
+        textDecorationLine: 'underline',
     },
 });
 
