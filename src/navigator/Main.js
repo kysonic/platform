@@ -2,10 +2,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import PreloaderScreen from '@screens/Preloader';
-import AuthScreen from '@screens/auth/Auth';
-import AuthLoginPasswordSignInScreen from '@screens/auth/AuthLoginPasswordSignIn';
-import AuthLoginPasswordSignUpScreen from '@screens/auth/AuthLoginPasswordSignUp';
-import AuthPhoneScreen from '@screens/auth/AuthPhone';
+import AuthScreen from '@screens/Auth';
 import HomeScreen from '@screens/Home';
 import ProfileScreen from '@screens/Profile';
 
@@ -13,9 +10,6 @@ const MainNavigator = createStackNavigator({
     Preloader: {screen: PreloaderScreen},
     // Auth
     Auth: {screen: AuthScreen},
-    AuthLoginPasswordSignIn: {screen: AuthLoginPasswordSignInScreen},
-    AuthLoginPasswordSignUp: {screen: AuthLoginPasswordSignUpScreen},
-    AuthPhone: {screen: AuthPhoneScreen},
     // Rest
     Home: {screen: HomeScreen},
     Profile: {screen: ProfileScreen},

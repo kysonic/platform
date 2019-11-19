@@ -6,7 +6,7 @@ import theme from '@themes/native-base/variables/platform';
 
 import type { ModeType, StyleSheetType} from '@types/base';
 
-const MODES = {
+export const MODES = {
     login: {
         caption: 'Sign in',
         text: "Doesn't have account yet?",
