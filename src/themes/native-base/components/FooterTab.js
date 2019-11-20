@@ -14,7 +14,8 @@ export default (variables /* : * */ = variable) => {
         'NativeBase.Text': {
           color: variables.tabBarActiveTextColor,
           fontSize: variables.tabBarTextSize,
-          lineHeight: 16
+          lineHeight: 16,
+          height: '100%',
         },
         'NativeBase.Icon': {
           color: variables.tabBarActiveTextColor

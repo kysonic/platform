@@ -33,6 +33,7 @@ const AuthScreen = ({navigation}: PropsType) => {
             'hardwareBackPress',
             onBackButtonPressAndroid
         );
+
         return () => {
             BackHandler.removeEventListener(
                 'hardwareBackPress',

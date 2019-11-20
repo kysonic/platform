@@ -41,8 +41,8 @@ export default {
 
   // Android
   androidRipple: true,
-  androidRippleColor: 'rgba(256, 256, 256, 0.3)',
-  androidRippleColorDark: 'rgba(0, 0, 0, 0.15)',
+  androidRippleColor: 'rgba(255,76,30,0.3)',
+  androidRippleColorDark: 'rgba(181,164,122,0.15)',
   buttonUppercaseAndroidText: true,
 
   // Badge
@@ -185,16 +185,16 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#12b582',
+  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#F8F8F8',
   footerPaddingBottom: 0,
 
   // FooterTab
-  tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#fff',
+  tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
-  activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  sTabBarActiveTextColor: '#fff',
-  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#12b582',
+  activeTab: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',
+  sTabBarActiveTextColor: '#6b6b6b',
+  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#e01c24' : '#e01c24',
+  tabActiveBgColor: platform === PLATFORM.IOS ? '#F8F8F8' : '#F8F8F8',
 
   // Header
   toolbarBtnColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',
