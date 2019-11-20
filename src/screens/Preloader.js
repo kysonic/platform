@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Spinner} from 'native-base';
 import auth from '@react-native-firebase/auth';
-import {WithoutHeader} from '@utils/navigation';
 import userStore from '@stores/user';
 import theme from '@themes/native-base/variables/platform';
 import ixHeroPoster from '@assets/img/placeholders/ix-hero-poster.png';
@@ -33,7 +32,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-
-WithoutHeader(PreloaderScreen);
 
 export default PreloaderScreen;

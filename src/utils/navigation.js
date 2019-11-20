@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import AppHeader from '@layouts/default/Header';
+
 import type {NavigationScreenProp, _NavigationInjectedProps} from 'react-navigation';
 
 type PropsType = {
@@ -13,6 +14,8 @@ export function ConnectHeader(Screen: NavigationScreenProp) {
             header: () => (
                 <AppHeader navigation={navigation} />
             ),
+            headerLeft: false,
+            headerMode: 'float',
         }
     );
 }
@@ -20,7 +23,8 @@ export function ConnectHeader(Screen: NavigationScreenProp) {
 export function WithoutHeader(Screen: NavigationScreenProp) {
     Screen.navigationOptions = () => (
         {
-            header: () => null
+            header: () => null,
+            tabBarVisible: false,
         }
     );
 }

@@ -7,14 +7,16 @@ import HomeScreen from '@screens/Home';
 import ProfileScreen from '@screens/Profile';
 
 const MainNavigator = createStackNavigator({
-    Preloader: {screen: PreloaderScreen},
-    // Auth
-    Auth: {screen: AuthScreen},
-    // Rest
     Home: {screen: HomeScreen},
     Profile: {screen: ProfileScreen},
+    Preloader: {screen: PreloaderScreen},
+    Auth: {screen: AuthScreen},
 }, {
     initialRouteName: 'Preloader',
+    headerMode: 'float',
+    defaultNavigationOptions: {
+        header: () => null,
+    },
 });
 
 const App = createAppContainer(MainNavigator);

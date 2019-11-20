@@ -2,7 +2,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Linking, StyleSheet, TouchableOpacity, View, ImageBackground} from 'react-native';
 import {Text} from 'native-base';
-import {WithoutHeader} from '@utils/navigation';
 import AuthBaseForm from '@components/auth/AuthBaseForm';
 import LoginPasswordForm from '@components/auth/LoginPasswordForm';
 import IXHeroVideo from '@components/ui/IXHeroVideo';
@@ -84,7 +83,5 @@ const styles: StyleSheetType = StyleSheet.create({
         height: 200,
     },
 });
-
-WithoutHeader(AuthScreen);
 
 export default AuthScreen;

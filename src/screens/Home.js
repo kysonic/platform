@@ -1,18 +1,18 @@
 import React from 'react';
-import {Container, Content} from 'native-base';
+import {Button, Text} from 'native-base';
 import TodoList from '@components/demo/TodoList';
-import {ConnectHeader} from '@utils/navigation';
+import authStore from '@stores/auth';
+import Layout from '@layouts/default/Layout';
 
 const HomeScreen = () => {
     return (
-        <Container>
-            <Content>
-                <TodoList/>
-            </Content>
-        </Container>
+        <Layout>
+            <TodoList/>
+            <Button onPress={() => authStore.logout()}>
+                <Text>Logout</Text>
+            </Button>
+        </Layout>
     );
 };
-
-ConnectHeader(HomeScreen);
 
 export default HomeScreen;
