@@ -4,14 +4,14 @@ import {Container, Content} from 'native-base';
 import Header from './Header';
 import Footer from './Footer';
 
-const Layout = ({children}) => {
+const Layout = ({children, navigation}) => {
     return (
         <Container>
-            <Header />
+            <Header navigation={navigation} />
             <Content>
                 {children}
             </Content>
-            <Footer />
+            <Footer navigation={navigation} />
         </Container>
     );
 };

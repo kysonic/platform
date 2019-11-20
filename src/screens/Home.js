@@ -4,9 +4,9 @@ import TodoList from '@components/demo/TodoList';
 import authStore from '@stores/auth';
 import Layout from '@layouts/default/Layout';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     return (
-        <Layout>
+        <Layout navigation={navigation}>
             <TodoList/>
             <Button onPress={() => authStore.logout()}>
                 <Text>Logout</Text>
