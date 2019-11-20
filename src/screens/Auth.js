@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useEffect, useCallback} from 'react';
-import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Linking, StyleSheet, TouchableOpacity, View, ImageBackground} from 'react-native';
 import {Text} from 'native-base';
 import {WithoutHeader} from '@utils/navigation';
 import AuthBaseForm from '@components/auth/AuthBaseForm';
@@ -9,6 +9,7 @@ import IXHeroVideo from '@components/ui/IXHeroVideo';
 import {MODES} from '@components/auth/LoginPasswordFormDoubleMode';
 import theme from '@themes/native-base/variables/platform';
 import { BackHandler } from 'react-native';
+import ixHeroPoster from '@assets/img/placeholders/ix-hero-poster.png';
 
 import type {StyleSheetType} from '@types/base';
 import type {_NavigationInjectedProps} from 'react-navigation';
@@ -42,7 +43,7 @@ const AuthScreen = ({navigation}: PropsType) => {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <ImageBackground source={ixHeroPoster} style={styles.container}>
             <IXHeroVideo />
             <View></View>
             <View style={styles.centerGroup}>
@@ -60,7 +61,7 @@ const AuthScreen = ({navigation}: PropsType) => {
                     <Text style={styles.privacyPolicy}>Privacy policy</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </ImageBackground>
     );
 };
 

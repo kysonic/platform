@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
-import {StyleSheet} from 'react-native';
-import {Container, Spinner} from 'native-base';
+import {ImageBackground, StyleSheet} from 'react-native';
+import {Spinner} from 'native-base';
 import auth from '@react-native-firebase/auth';
 import {WithoutHeader} from '@utils/navigation';
 import userStore from '@stores/user';
+import theme from '@themes/native-base/variables/platform';
+import ixHeroPoster from '@assets/img/placeholders/ix-hero-poster.png';
 
 const PreloaderScreen = ({navigation}) => {
     // Don't clear effect so how it should orchestrate auth state changes all the time
@@ -18,9 +20,9 @@ const PreloaderScreen = ({navigation}) => {
         });
     }, []);
     return (
-        <Container style={styles.container}>
-            <Spinner color="green" />
-        </Container>
+        <ImageBackground source={ixHeroPoster} style={styles.container}>
+            <Spinner color={theme.brandPrimary} />
+        </ImageBackground>
     );
 };
 
