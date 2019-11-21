@@ -8,11 +8,11 @@ type PropsType = {
     navigation: _NavigationInjectedProps
 }
 
-export function ConnectHeader(Screen: NavigationScreenProp) {
+export function ConnectHeader(Screen: NavigationScreenProp, options) {
     Screen.navigationOptions = ({navigation} : PropsType) => (
         {
             header: () => (
-                <AppHeader navigation={navigation} />
+                <AppHeader navigation={navigation} options={options} />
             ),
             headerLeft: false,
             headerMode: 'float',

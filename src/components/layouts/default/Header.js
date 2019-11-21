@@ -1,55 +1,54 @@
 // @flow
 import React from 'react';
-import {Body, Button, Header, Icon, Right, Title, ActionSheet} from 'native-base';
-import authStore from '@stores/auth';
+import {Left, Body, Button, Header, Icon, Right, Title} from 'native-base';
+import {StyleSheet} from 'react-native';
+import theme from '@themes/native-base/variables/platform';
 
 import type {_NavigationInjectedProps} from 'react-navigation';
 
-const BUTTONS = ['Profile', 'Logout', 'Cancel'];
-const CANCEL_INDEX = 2;
-
-const actions = [
-    (navigation: _NavigationInjectedProps): void => {
-        navigation.navigate('Profile');
-    },
-    (navigation: _NavigationInjectedProps): void => {
-        authStore.logout();
-    },
-];
-
-const openActionSheet = (navigation: _NavigationInjectedProps): void => {
-    ActionSheet.show(
-        {
-            options: BUTTONS,
-            cancelButtonIndex: CANCEL_INDEX,
-            title: 'Menu',
-        },
-        buttonIndex => {
-            if (actions[buttonIndex] && typeof actions[buttonIndex] === 'function') {
-                actions[buttonIndex](navigation);
-            }
-        }
-    );
-};
-
 type PropsType = {
-    title?: string,
+    options?: Object,
     navigation: _NavigationInjectedProps
 };
 
-const AppHeader = ({title = '', navigation} : PropsType) => {
+const AppHeader = ({options: {icon, title, action} = {}, navigation} : PropsType) => {
     return (
         <Header>
+            <Left style={appHeaderStyles.left}>
+                { icon ? <Icon style={appHeaderStyles.leftIcon} type="Feather" name={icon} /> : null }
+                { title ? <Title style={appHeaderStyles.leftTitle}>{title}</Title> : null }
+            </Left>
             <Body>
-                <Title>{title}</Title>
+
             </Body>
             <Right>
-                <Button transparent onPress={() => openActionSheet(navigation)}>
-                    <Icon type="Feather" name="more-vertical" />
-                </Button>
+                {action ? (
+                    <Button transparent>
+                        <Icon style={appHeaderStyles.actionIcon} type="Feather" name={action} />
+                    </Button>
+                ) : null}
             </Right>
         </Header>
     );
 };
+
+const appHeaderStyles = StyleSheet.create({
+    left: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+    leftIcon: {
+        marginLeft: 10,
+        color: theme.toolbarBtnTextColor,
+    },
+    leftTitle: {
+        marginLeft: 10,
+    },
+    actionIcon: {
+        fontSize: 25,
+        marginRight: 5,
+    },
+});
 
 export default AppHeader;

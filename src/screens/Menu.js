@@ -9,6 +9,6 @@ const MenuScreen = ({navigation}) => {
     );
 };
 
-ConnectHeader(MenuScreen);
+ConnectHeader(MenuScreen, {title: 'Menu', icon: 'menu'});
 
 export default MenuScreen;

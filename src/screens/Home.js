@@ -16,6 +16,6 @@ const HomeScreen = ({navigation}) => {
     );
 };
 
-ConnectHeader(HomeScreen);
+ConnectHeader(HomeScreen, {title: 'Home', icon: 'home', action: 'search'});
 
 export default HomeScreen;

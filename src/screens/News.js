@@ -9,6 +9,6 @@ const NewsScreen = ({navigation}) => {
     );
 };
 
-ConnectHeader(NewsScreen);
+ConnectHeader(NewsScreen, {title: 'News', icon: 'book-open'});
 
 export default NewsScreen;

@@ -9,6 +9,6 @@ const InboxScreen = ({navigation}) => {
     );
 };
 
-ConnectHeader(InboxScreen);
+ConnectHeader(InboxScreen, {title: 'Inbox', icon: 'inbox'});
 
 export default InboxScreen;
