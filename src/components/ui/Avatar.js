@@ -8,28 +8,30 @@ import type {StyleSheetType} from '@types/base';
 type PropsType = {
     uri: string,
     style: StyleSheetType,
+    size?: number,
 }
 
-const Avatar = ({uri = '', style}: PropsType) => {
+const Avatar = ({uri = '', style, size = 50}: PropsType) => {
     const [isError, setIsError] = useState(false);
     (isError: boolean);
 
+    const sizeStyles = {
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+    };
+
     return (
         <Image
-            style={[styles.image, style]}
+            style={[styles.image, style, sizeStyles]}
             source={(!isError && uri) ? {uri} : placeholderAvatar}
             onError={(e) => setIsError(true)}
         />
     );
 };
 
-const AVATAR_SIZE = 50;
-
 const styles: StyleSheetType = StyleSheet.create({
     image: {
-        width: AVATAR_SIZE,
-        height: AVATAR_SIZE,
-        borderRadius: AVATAR_SIZE / 2,
         overflow: 'hidden',
     },
 });

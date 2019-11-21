@@ -8,6 +8,7 @@ import ProfilePlate from '@components/ui/ProfilePlate';
 import userStore from '@stores/user';
 import authStore from '@stores/auth';
 import ListMenu from '@components/ui/ListMenu';
+import {useObserver} from 'mobx-react-lite';
 
 const MENU_ITEMS = [
     {
@@ -41,7 +42,7 @@ const MENU_ITEMS = [
 ];
 
 const MenuScreen = ({navigation}) => {
-    return (
+    return useObserver(() => (
         <Container style={menuScreenStyles.container}>
             <Content>
                 <ProfilePlate user={userStore.user} onPress={() => navigation.navigate('Profile')}/>
@@ -59,7 +60,7 @@ const MenuScreen = ({navigation}) => {
                 </ListItem>
             </Content>
         </Container>
-    );
+    ));
 };
 
 const menuScreenStyles = StyleSheet.create({

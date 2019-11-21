@@ -7,6 +7,9 @@ import ProfileUserName from './ProfileUserName';
 import theme from '@themes/native-base/variables/platform';
 
 const ProfilePlate = ({user, onPress = () => {} }) => {
+    if (!user) {
+        return null;
+    }
     return (
         <TouchableOpacity style={profilePlateStyles.container} onPress={onPress}>
             <View style={profilePlateStyles.user}>

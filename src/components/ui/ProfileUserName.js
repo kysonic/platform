@@ -13,13 +13,13 @@ type ProfileUserNamePropsType = {
     style?: StyleSheetType
 }
 
-const ProfileUserName = ({name, email, phone, style = {}}: ProfileUserNamePropsType) => {
+const ProfileUserName = ({name, email, phone, style = {}, textStyle}: ProfileUserNamePropsType) => {
     const dataArray: Array<string> = [name, email, phone].filter(v => v);
     const onlyOneItem = dataArray.length === 1;
     return (
         <View style={[profileNameStyles.container, onlyOneItem ? profileNameStyles.containerCentered : {}, style]}>
-            <Text style={[profileNameStyles.primary, !onlyOneItem ? profileNameStyles.primaryMargin : {}]}>{dataArray[0]}</Text>
-            {dataArray[1] ? <Text style={profileNameStyles.secondary}>{dataArray[1]}</Text> : null}
+            <Text style={[profileNameStyles.primary, !onlyOneItem ? profileNameStyles.primaryMargin : {}, textStyle]}>{dataArray[0]}</Text>
+            {dataArray[1] ? <Text style={[profileNameStyles.secondary, textStyle]}>{dataArray[1]}</Text> : null}
         </View>
     );
 };
