@@ -23,7 +23,7 @@ const Avatar = ({uri = '', style}: PropsType) => {
     );
 };
 
-const AVATAR_SIZE = 80;
+const AVATAR_SIZE = 50;
 
 const styles: StyleSheetType = StyleSheet.create({
     image: {
@@ -31,8 +31,6 @@ const styles: StyleSheetType = StyleSheet.create({
         height: AVATAR_SIZE,
         borderRadius: AVATAR_SIZE / 2,
         overflow: 'hidden',
-        borderWidth: 2,
-        borderColor: theme.brandPrimary,
     },
 });
 
