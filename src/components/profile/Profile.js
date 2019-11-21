@@ -80,14 +80,10 @@ const Profile = () => {
                             <ProfileUserName {...user} />
                         </View>
                         <EditableProfileData editMode={editMode} user={user} onChange={onChange} />
+                        <Button full onPress={action}>
+                            <Text>{!editMode ? 'Edit' : 'Save'}</Text>
+                        </Button>
                     </Content>
-                    <Footer>
-                        <FooterTab>
-                            <Button full onPress={action}>
-                                <Text>{!editMode ? 'Edit' : 'Save'}</Text>
-                            </Button>
-                        </FooterTab>
-                    </Footer>
                 </Container>
             );
         }

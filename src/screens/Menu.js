@@ -1,14 +1,16 @@
 // @flow
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, Button} from 'native-base';
 import {ConnectHeader} from '@utils/navigation';
 
 const MenuScreen = ({navigation}) => {
     return (
-        <Text>Menu</Text>
+        <Button onPress={() => navigation.navigate('Profile')}>
+            <Text>Profile</Text>
+        </Button>
     );
 };
 
-ConnectHeader(MenuScreen, {title: 'Menu', icon: 'menu'});
+ConnectHeader(MenuScreen, {title: 'Menu', icon: 'menu', action: 'settings'});
 
 export default MenuScreen;

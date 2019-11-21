@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
 import {Left, Body, Button, Header, Icon, Right, Title} from 'native-base';
 import {StyleSheet} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
@@ -11,10 +12,15 @@ type PropsType = {
     navigation: _NavigationInjectedProps
 };
 
-const AppHeader = ({options: {icon, title, action} = {}, navigation} : PropsType) => {
+const AppHeader = ({options: {icon, title, action, back} = {}, navigation} : PropsType) => {
     return (
         <Header>
             <Left style={appHeaderStyles.left}>
+                {back ? (
+                    <TouchableOpacity transparent onPress={() => navigation.goBack()}>
+                        <Icon style={appHeaderStyles.backIcon} type="Feather" name="arrow-left" />
+                    </TouchableOpacity>
+                ) : null}
                 { icon ? <Icon style={appHeaderStyles.leftIcon} type="Feather" name={icon} /> : null }
                 { title ? <Title style={appHeaderStyles.leftTitle}>{title}</Title> : null }
             </Left>
@@ -48,6 +54,11 @@ const appHeaderStyles = StyleSheet.create({
     actionIcon: {
         fontSize: 25,
         marginRight: 5,
+    },
+    backIcon: {
+        color: theme.toolbarBtnTextColor,
+        fontSize: 25,
+        marginLeft: 10,
     },
 });
 

@@ -23,8 +23,9 @@ const App: () => React$Node = () => {
                             <View style={styles.appContainer}>
                                 <MainNavigator
                                     onNavigationStateChange={(prev, next, action) => {
-                                        if (action && action.routeName) {
-                                            globalStore.setRoute(action.routeName);
+                                        const routeName = next.routes && next.routes[next.index] && next.routes[next.index].routeName;
+                                        if (routeName) {
+                                            globalStore.setRoute(routeName);
                                         }
                                     }}
                                     ref={navigationRef}
