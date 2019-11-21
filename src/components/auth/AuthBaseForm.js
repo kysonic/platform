@@ -39,24 +39,14 @@ const styles = StyleSheet.create({
         fontSize: 24,
         paddingBottom: 40,
         color: theme.brandPrimary,
-        textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        textShadowOffset: {width: -1, height: 1},
-        textShadowRadius: 10
+        ...theme.textShadow,
     },
     button: {
         marginTop: 20,
         height: 50,
         fontSize: 12,
         backgroundColor: theme.brandLight,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 1.41,
-
-        elevation: 2,
+        ...theme.boxShadow,
     },
     buttonText: {
         color: theme.textColor,

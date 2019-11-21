@@ -23,15 +23,7 @@ const profilePlateStyles = StyleSheet.create({
         paddingBottom: 10,
         backgroundColor: theme.brandLight,
 
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 1.41,
-
-        elevation: 2,
+        ...theme.boxShadow,
     },
     userName: {
         marginLeft: 10,

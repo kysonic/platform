@@ -323,6 +323,26 @@ export default {
   isIphoneX,
   inputGroupRoundedBorderRadius: 30,
 
+  // Shadows
+
+  boxShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+
+  textShadow: {
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+  },
+
   // iPhoneX SafeArea
   Inset: {
     portrait: {

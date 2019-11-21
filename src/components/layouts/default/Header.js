@@ -45,7 +45,7 @@ const appHeaderStyles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     leftIcon: {
-        marginLeft: 10,
+        marginLeft: 5,
         color: theme.toolbarBtnTextColor,
     },
     leftTitle: {
@@ -53,12 +53,12 @@ const appHeaderStyles = StyleSheet.create({
     },
     actionIcon: {
         fontSize: 25,
-        marginRight: 5,
+        marginRight: 0,
     },
     backIcon: {
         color: theme.toolbarBtnTextColor,
         fontSize: 25,
-        marginLeft: 10,
+        marginLeft: 5,
     },
 });
 

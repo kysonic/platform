@@ -1,5 +1,5 @@
 // @flow
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {StatusBar, View, StyleSheet} from 'react-native';
 import MainNavigator from '@navigator/Main';
 import getTheme from '@themes/native-base/components';
@@ -8,16 +8,22 @@ import {StyleProvider, Root} from 'native-base';
 import {useObserver} from 'mobx-react-lite';
 import globalStore from '@stores/global';
 import Footer from '@layouts/default/Footer';
+import theme from '@themes/native-base/variables/platform';
 import '@config/firebase.bootstrap';
 
 const App: () => React$Node = () => {
 
     const navigationRef = useRef();
 
+    useEffect(() => {
+        StatusBar.setBarStyle( 'dark-content',true);
+        StatusBar.setBackgroundColor(theme.toolbarDefaultBg);
+    }, [globalStore.route]);
+
     return useObserver(() => {
             return (
                 <>
-                    <StatusBar barStyle="default" hidden={!globalStore.statusBarEnabled}/>
+                    <StatusBar hidden={!globalStore.statusBarEnabled}/>
                     <StyleProvider style={getTheme(platform)}>
                         <Root>
                             <View style={styles.appContainer}>
