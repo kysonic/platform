@@ -18,7 +18,7 @@ const profilePlateStyles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        paddingLeft: 20,
+        paddingLeft: 15,
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: theme.brandLight,

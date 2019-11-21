@@ -16,14 +16,14 @@ const App: () => React$Node = () => {
     const navigationRef = useRef();
 
     useEffect(() => {
-        StatusBar.setBarStyle( 'dark-content',true);
+        StatusBar.setBarStyle( 'dark-content',false);
         StatusBar.setBackgroundColor(theme.toolbarDefaultBg);
     }, [globalStore.route]);
 
     return useObserver(() => {
             return (
                 <>
-                    <StatusBar hidden={!globalStore.statusBarEnabled}/>
+                    <StatusBar hidden={!globalStore.statusBarEnabled} barStyle="dark-content"/>
                     <StyleProvider style={getTheme(platform)}>
                         <Root>
                             <View style={styles.appContainer}>
