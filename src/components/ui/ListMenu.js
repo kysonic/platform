@@ -8,12 +8,12 @@ const ListMenu = ({items}) => {
     return (
         <View style={listMenuStyles.menu}>
             {items.map(({icon, title}) =>  (
-                <ListItem style={listMenuStyles.listItem} icon>
+                <ListItem key={`${title}_${icon}`} style={listMenuStyles.listItem} icon>
                     <Left style={listMenuStyles.borderBottom}>
                         <Icon style={listMenuStyles.icon} type="Feather" name={icon} />
                     </Left>
                     <Body style={listMenuStyles.borderBottom}>
-                        <Text note>{title}</Text>
+                        <Text style={listMenuStyles.text} note>{title}</Text>
                     </Body>
                     <Right style={listMenuStyles.borderBottom}>
                         <Icon type="Feather" name="chevron-right" />
@@ -42,6 +42,9 @@ const listMenuStyles = StyleSheet.create({
     borderBottom: {
         borderColor: theme.containerBgColor,
         borderBottomWidth: 1,
+    },
+    text: {
+        color: theme.listNoteColor
     },
 });
 

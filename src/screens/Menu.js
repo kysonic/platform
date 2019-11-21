@@ -86,6 +86,6 @@ const menuScreenStyles = StyleSheet.create({
     },
 });
 
-ConnectHeader(MenuScreen, {title: 'Menu', icon: 'menu', action: 'settings'});
+ConnectHeader(MenuScreen, {title: 'Menu', action: 'settings'});
 
 export default MenuScreen;

@@ -253,7 +253,7 @@ export default {
   listDividerBg: '#f4f4f4',
   listBtnUnderlayColor: '#DDD',
   listItemPadding: platform === PLATFORM.IOS ? 10 : 12,
-  listNoteColor: '#808080',
+  listNoteColor: '#575757',
   listNoteSize: 13,
 
   // Progress Bar
