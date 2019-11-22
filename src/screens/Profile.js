@@ -35,8 +35,8 @@ const ProfileScreen = ({navigation}) => {
 
             return (
                 <Container style={styles.container}>
-                    <Content contentContainerStyle={styles.content}>
-                        <ProfileCover user={user} onBackPress={() => navigation.goBack()} />
+                    <ProfileCover user={user} onBackPress={() => navigation.goBack()} />
+                    <Content>
                         <EditableProfileData editMode={editMode} user={user} onChange={onChange} />
                         <Button block onPress={action}>
                             <Text>{!editMode ? 'Edit' : 'Save'}</Text>

@@ -24,9 +24,6 @@ const AppHeader = ({options: {icon, title, action, back} = {}, navigation} : Pro
                 { icon ? <Icon style={appHeaderStyles.leftIcon} type="Feather" name={icon} /> : null }
                 { title ? <Title style={appHeaderStyles.leftTitle}>{title}</Title> : null }
             </Left>
-            <Body>
-
-            </Body>
             <Right>
                 {action ? (
                     <Button transparent>

@@ -1,6 +1,6 @@
 // @flow
 import React, {useState, useEffect, useCallback} from 'react';
-import {Linking, StyleSheet, TouchableOpacity, View, ImageBackground} from 'react-native';
+import {Linking, StyleSheet, TouchableOpacity, View, ImageBackground, StatusBar} from 'react-native';
 import {Text} from 'native-base';
 import AuthBaseForm from '@components/auth/AuthBaseForm';
 import LoginPasswordForm from '@components/auth/LoginPasswordForm';
@@ -44,6 +44,7 @@ const AuthScreen = ({navigation}: PropsType) => {
 
     return (
         <ImageBackground source={ixHeroPoster} style={styles.container}>
+            <StatusBar hidden={true}/>
             <IXHeroVideo />
             <View></View>
             <View style={styles.centerGroup}>

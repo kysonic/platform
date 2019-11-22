@@ -10,7 +10,7 @@ const navigateTo = (navigationContainer, screen) => {
     );
 };
 
-const AppFooter = ({navigationContainer}) => {
+const AppFooter = ({navigationContainer, hidden}) => {
     return useObserver(() => (
             <Footer>
                 <FooterTab>
