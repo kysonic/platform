@@ -15,12 +15,10 @@ export const DEFAULT_USER = {
     authId: [],
     email: '',
     name: '',
-    startedCourses: [],
-    completedCourses: [],
-    ecoIndex: 0,
     birthDate: '',
     avatar: '',
-    phone: '',
+    phoneNumber: '',
+    favoriteTeam: '',
 };
 
 export function UserFactory(): UserType {
@@ -33,11 +31,9 @@ export function UserDecorators() {
         authId: observable,
         email: observable,
         name: observable,
-        startedCourses: observable.shallow,
-        completedCourses: observable.shallow,
-        ecoIndex: observable,
         birthDate: observable,
         avatar: observable,
+        favoriteTeam: observable,
     };
 }
 
@@ -186,6 +182,10 @@ export function UserStoreFactory(): UserStoreType {
 
         setUserBirthDate(birthDate: Date): void {
             this.user.birthDate = DateTime.fromJSDate(birthDate).toFormat('yyyy-MM-dd');
+        },
+
+        setUserPhoneNumber(phoneNumber: string): void {
+            this.user.phoneNumber = phoneNumber;
         },
     };
 }

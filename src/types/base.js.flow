@@ -21,12 +21,11 @@ export type UserType = {
     authId: Array<string>, // Firebase auth id
     email: string | null,
     name?: string | null,
-    startedCourses?: Array<string>,
-    completedCourses?: Array<string>,
-    ecoIndex?: number,
     birthDate?: string,
     avatar?: string | null,
-    phone?: string | null,
+    phoneNumber?: string | null,
+    favoriteTeam?: string,
+    zipCode?: string,
 }
 
 

@@ -1,6 +1,6 @@
 // @flow
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {useObserver} from 'mobx-react-lite';
 import userStore from '@stores/user';
 import {Container, Content, Button, Text, Footer} from 'native-base';
@@ -53,6 +53,7 @@ const ProfileScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: theme.containerBgColor,
     },
     content: {
     },
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.containerBgColor,
         padding: 0,
         margin: 0,
-        height: 10,
+        height: Platform.OS === 'ios' ? 10 : 45,
     },
     button: {
         width: '100%',

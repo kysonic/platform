@@ -30,7 +30,7 @@ export function userMapper({uid, email, displayName, photoURL, providerData, pho
     return removeEmpty({
         authId: [uid],
         email: email || providerData[0].email,
-        phone: phoneNumber,
+        phoneNumber: phoneNumber,
         name: displayName,
         avatar: photoURL,
     });

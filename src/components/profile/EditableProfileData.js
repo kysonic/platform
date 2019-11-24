@@ -5,6 +5,7 @@ import theme from '@themes/native-base/variables/platform';
 import {useObserver} from 'mobx-react-lite';
 import DatePicker from '@components/ui/DatePicker';
 import {Form, Input, Item} from 'native-base';
+import {TextInputMask} from 'react-native-masked-text';
 
 import type {StyleSheetType} from '@types/base';
 import type {UserType} from '@types/base';
@@ -26,23 +27,21 @@ const DataItem = ({label, value}: DataItemPropsType) => {
 
 const dataItemStyles:StyleSheetType = StyleSheet.create({
     container: {
-        margin: 5,
-        padding: 20,
-        borderColor: theme.cardBorderColor,
-        borderWidth: 1,
-        borderRadius: 10,
+        padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: theme.brandLight,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.toolbarInputColor,
     },
     label: {
-        fontSize: 25,
+        fontSize: 18,
         color: theme.weakText,
-        textTransform: 'uppercase',
         textAlign: 'center',
     },
     value: {
-        fontSize: 25,
+        fontSize: 18,
         color: theme.weakText,
         textTransform: 'uppercase',
         textAlign: 'center',
@@ -73,6 +72,19 @@ const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => 
                         mode="date"
                         display="default"
                         onChange={(v) => onChange(name, v)}
+                    />
+                );
+            case 'phone':
+                return (
+                    <TextInputMask
+                        placeholder = "+X (XXX) XXX XX XX"
+                        keyboardType="numeric"
+                        type="custom"
+                        value={value}
+                        options={{
+                            mask: '+9 999 999-99-99',
+                        }}
+                        onChangeText={text => onChange(name, text)}
                     />
                 );
             default:
@@ -117,6 +129,12 @@ const PROPERTY_LIST: PropertyListType = {
         showable: true,
         type: 'date',
     },
+    phoneNumber: {
+        label: 'Phone',
+        editable: true,
+        showable: true,
+        type: 'phone',
+    },
 };
 
 type EditableProfileDataPropsType = {
@@ -128,7 +146,7 @@ type EditableProfileDataPropsType = {
 const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataPropsType) => {
     const Wrapper = editMode ? Form : View;
     return useObserver(() =>(
-        <Wrapper style={editableProfileDataStyles.container}>
+        <Wrapper style={[editableProfileDataStyles.container, editMode ? editableProfileDataStyles.containerEdit : editableProfileDataStyles.containerShow]}>
             {Object.entries(PROPERTY_LIST).map(([key, value]: [string, Object]) => (
                     (editMode && value.editable) ?
                     <FormField key={key} {...value} name={key} value={user[key]} onChange={onChange} /> :
@@ -140,6 +158,13 @@ const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataProp
 
 const editableProfileDataStyles: StyleSheetType = StyleSheet.create({
     container: {
+
+    },
+    containerShow: {
+        marginTop: 20,
+        ...theme.boxShadow,
+    },
+    containerEdit: {
         padding: 10,
     },
 });
