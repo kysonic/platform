@@ -3,6 +3,7 @@
 ~/Library/Android/sdk/emulator/emulator -list-avds
 ~/Library/Android/sdk/emulator/emulator -avd Pixel_2_API_28
 ~/Library/Android/sdk/emulator/emulator -avd Nexus_5_API_28
+~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_XL_API_29
 ````
 ### Issues with IOS build 
 
@@ -65,3 +66,14 @@ https://medium.com/@abhisheknalwaya/how-to-clear-react-native-cache-c435c258834e
 4. Remove previos version.
 5. Get new
 6. Add via right click on project and select "Add to project_name"
+
+
+### JDK Home path
+
+/Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home
+
+### Release Firebase GOOGLE Auth issue
+
+1. Go to app /Users/anton.miroshnichenko/WebDev/CDC/platform/android/app
+2. Get SH1 keytool -list -v -alias my-key-alias -keystore ./my-upload-key.keystore
+3. Paste to Firebase console
