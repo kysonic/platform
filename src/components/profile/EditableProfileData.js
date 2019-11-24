@@ -1,13 +1,14 @@
 // @flow
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
-import {DateTime} from 'luxon';
+import {useObserver} from 'mobx-react-lite';
+import DatePicker from '@components/ui/DatePicker';
+import {Form, Input, Item} from 'native-base';
 
 import type {StyleSheetType} from '@types/base';
 import type {UserType} from '@types/base';
-import {Form, Input, Item} from 'native-base';
-import DatePicker from '@components/ui/DatePicker';
+
 
 type DataItemPropsType = {
     label: string,
@@ -67,9 +68,11 @@ const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => 
                 return (
                     <DatePicker
                         value={value}
-                        placeholder="Date of birth"
+                        placehodler="Birth Date"
                         format="yyyy-MM-dd"
-                        onDateChange={(v) => onChange(name, v)}
+                        mode="date"
+                        display="default"
+                        onChange={(e, v) => onChange(name, v)}
                     />
                 );
             default:
@@ -102,11 +105,6 @@ type PropertyListType = {
 }
 
 const PROPERTY_LIST: PropertyListType = {
-    ecoIndex: {
-        label: 'Eco index',
-        editable: false,
-        showable: true,
-    },
     name: {
         label: 'Name',
         editable: true,
@@ -129,7 +127,7 @@ type EditableProfileDataPropsType = {
 
 const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataPropsType) => {
     const Wrapper = editMode ? Form : View;
-    return (
+    return useObserver(() =>(
         <Wrapper style={editableProfileDataStyles.container}>
             {Object.entries(PROPERTY_LIST).map(([key, value]: [string, Object]) => (
                     (editMode && value.editable) ?
@@ -137,7 +135,7 @@ const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataProp
                     (!editMode && value.showable ? <DataItem key={key} label={value.label} value={user[key]} /> : null)
             ))}
         </Wrapper>
-    );
+    ));
 };
 
 const editableProfileDataStyles: StyleSheetType = StyleSheet.create({

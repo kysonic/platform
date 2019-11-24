@@ -187,6 +187,7 @@ export default {
   footerHeight: 55,
   footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#F8F8F8',
   footerPaddingBottom: 0,
+  footerCTAButtonColor: '#e6e6e6',
 
   // FooterTab
   tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',

@@ -58,6 +58,8 @@ target 'trash' do
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
   target 'trashTests' do
     inherit! :search_paths
     # Pods for testing

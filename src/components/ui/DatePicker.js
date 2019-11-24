@@ -1,41 +1,42 @@
 // @flow
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {DatePicker as NBDatePicker, Text} from 'native-base';
+import React, {useState} from 'react';
+import {TouchableOpacity, StyleSheet} from 'react-native';
+import {Text} from 'native-base';
 import {DateTime} from 'luxon';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-import type {StyleSheetType} from "@types/base";
+import type {StyleSheetType} from '@types/base';
+
 
 type DatePickerPropsType = {
-    defaultDate?: Date,
+    value?: Date,
     minimumDate?: Date,
     maximumDate?: Date,
     locale?: string,
-    timeZoneOffsetInMinutes?: number,
-    modalTransparent?: boolean,
-    animationType?: string,
-    androidMode?: string,
-    placeHolderText?: string,
-    placeholder?: string,
-    textStyle?: Object,
-    placeHolderTextStyle?: Object,
-    onDateChange?: Function,
-    disabled?: boolean,
+    is24Hour?: boolean,
+    minuteInterval?: number,
     format: string,
     value: string,
 }
 
 const DatePicker = (props: DatePickerPropsType) => {
+    const [opened, setOpened] = useState(false);
+    (opened: boolean);
+
     return (
-        <View style={datePickerStyles.container}>
+        <TouchableOpacity onPress={() => setOpened(true)} style={datePickerStyles.container}>
             <Text style={datePickerStyles.text}>{props.value ? props.value : props.placeholder}</Text>
-            <NBDatePicker
+            {opened ? <DateTimePicker
                 {...props}
-                defaultDate={DateTime.fromFormat(props.value, props.format).toJSDate()}
-                textStyle={datePickerStyles.datePicker}
-                placeHolderText={null}
-            />
-        </View>
+                onChange={(e, v) => {
+                    setOpened(false);
+                    if (props.onChange) {
+                        props.onChange(e,v);
+                    }
+                }}
+                value={DateTime.fromFormat(props.value, props.format).toJSDate()}
+            /> : null}
+        </TouchableOpacity>
     );
 };
 
@@ -44,9 +45,6 @@ const datePickerStyles: StyleSheetType = StyleSheet.create({
         padding: 5,
     },
     text: {
-        position: 'absolute',
-        top: 15,
-        left: 5,
     },
     datePicker: {
         opacity: 0,
