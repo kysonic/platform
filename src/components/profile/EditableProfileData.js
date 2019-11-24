@@ -72,7 +72,7 @@ const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => 
                         format="yyyy-MM-dd"
                         mode="date"
                         display="default"
-                        onChange={(e, v) => onChange(name, v)}
+                        onChange={(v) => onChange(name, v)}
                     />
                 );
             default:

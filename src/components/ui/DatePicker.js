@@ -1,12 +1,12 @@
 // @flow
 import React, {useState} from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Text} from 'native-base';
 import {DateTime} from 'luxon';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import theme from '@themes/native-base/variables/platform';
 
 import type {StyleSheetType} from '@types/base';
-
 
 type DatePickerPropsType = {
     value?: Date,
@@ -23,31 +23,47 @@ const DatePicker = (props: DatePickerPropsType) => {
     const [opened, setOpened] = useState(false);
     (opened: boolean);
 
+    const hideDatePicker = () => {
+        setOpened(false);
+    };
+
+    const handleConfirm = (date) => {
+        if (props.onChange) {
+            props.onChange(date);
+        }
+        hideDatePicker();
+    };
+
     return (
-        <TouchableOpacity onPress={() => setOpened(true)} style={datePickerStyles.container}>
-            <Text style={datePickerStyles.text}>{props.value ? props.value : props.placeholder}</Text>
-            {opened ? <DateTimePicker
+        <View style={datePickerStyles.container}>
+            <TouchableOpacity onPress={() => setOpened(true)} >
+                <Text style={datePickerStyles.text}>{props.value ? props.value : props.placeholder}</Text>
+            </TouchableOpacity>
+            {opened ? <DateTimePickerModal
                 {...props}
-                onChange={(e, v) => {
-                    setOpened(false);
-                    if (props.onChange) {
-                        props.onChange(e,v);
-                    }
-                }}
-                value={DateTime.fromFormat(props.value, props.format).toJSDate()}
+                date={DateTime.fromFormat(props.value, props.format).toJSDate()}
+                headerTextIOS={props.placeholder}
+                isVisible={opened}
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
             /> : null}
-        </TouchableOpacity>
+        </View>
     );
 };
 
 const datePickerStyles: StyleSheetType = StyleSheet.create({
     container: {
-        padding: 5,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 5,
+        flex: 1,
     },
-    text: {
+    selectDateText: {
+        textAlign: 'center',
+        color: theme.tabBarTextColor,
     },
     datePicker: {
-        opacity: 0,
+        width: '100%',
     },
 });
 

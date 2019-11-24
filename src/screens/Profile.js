@@ -23,11 +23,8 @@ const ProfileScreen = ({navigation}) => {
     };
 
     const onChange = (name: string, value: mixed): void => {
-        console.log(name, value);
         const setUserMethodName = `setUser${capitalizeFirst(name)}`;
-        console.log(setUserMethodName);
         if (userStore[setUserMethodName] && typeof userStore[setUserMethodName] === 'function') {
-            console.log('Run');
             userStore[setUserMethodName](value);
         }
     };
