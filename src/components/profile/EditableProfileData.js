@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Picker} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
 import {useObserver} from 'mobx-react-lite';
 import DatePicker from '@components/ui/DatePicker';
-import {Form, Input, Item} from 'native-base';
+import {Form, Input, Item, Icon} from 'native-base';
 import {TextInputMask} from 'react-native-masked-text';
 
 import type {StyleSheetType} from '@types/base';
@@ -16,10 +16,13 @@ type DataItemPropsType = {
     value: string | number,
 }
 
-const DataItem = ({label, value}: DataItemPropsType) => {
+const DataItem = ({label, value, icon, index}: DataItemPropsType) => {
     return (
-        <View style={dataItemStyles.container}>
-            <Text style={dataItemStyles.label}>{label}</Text>
+        <View style={[dataItemStyles.container, index === 1 ? dataItemStyles.first : {}]}>
+            <View style={dataItemStyles.leftContainer}>
+                {icon && <Icon style={dataItemStyles.icon} type="Feather" name={icon}></Icon>}
+                <Text style={dataItemStyles.label}>{label}</Text>
+            </View>
             <Text style={dataItemStyles.value}>{value || 'n/a'}</Text>
         </View>
     );
@@ -33,17 +36,31 @@ const dataItemStyles:StyleSheetType = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: theme.brandLight,
         borderBottomWidth: 1,
-        borderBottomColor: theme.toolbarInputColor,
+        borderBottomColor: theme.containerBgColor,
+    },
+    first: {
+        borderTopWidth: 1,
+        borderTopColor: theme.containerBgColor,
+    },
+    leftContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    icon: {
+        color: theme.weakText,
+        fontSize: 18,
+        marginRight: 10,
     },
     label: {
-        fontSize: 18,
+        fontSize: 16,
         color: theme.weakText,
         textAlign: 'center',
+        fontWeight: '100',
     },
     value: {
-        fontSize: 18,
-        color: theme.weakText,
-        textTransform: 'uppercase',
+        fontSize: 16,
+        color: theme.strongText,
         textAlign: 'center',
     },
 });
@@ -53,19 +70,26 @@ type FormFieldPropsType = {
     type: string,
     label: string,
     value: mixed,
+    items: Array,
     onChange: () => void,
 };
 
-const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => {
+const FormField = ({name, type, label, value, items = [], onChange}: FormFieldPropsType) => {
     const Element = (type: string) => {
         switch (type) {
             case 'text':
                 return (
-                    <Input style={formFieldStyles.input} value={value} placeholder={label} onChangeText={(v) => onChange(name, v)} />
+                    <Input
+                        style={formFieldStyles.field}
+                        value={value}
+                        placeholder={label}
+                        onChangeText={(v) => onChange(name, v)}
+                    />
                 );
             case 'date':
                 return (
                     <DatePicker
+                        textStyle={formFieldStyles.field}
                         value={value}
                         placehodler="Birth Date"
                         format="yyyy-MM-dd"
@@ -77,6 +101,7 @@ const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => 
             case 'phone':
                 return (
                     <TextInputMask
+                        style={formFieldStyles.field}
                         placeholder = "+X (XXX) XXX XX XX"
                         keyboardType="numeric"
                         type="custom"
@@ -86,6 +111,19 @@ const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => 
                         }}
                         onChangeText={text => onChange(name, text)}
                     />
+                );
+            case 'picker':
+                return (
+                    <Picker
+                        selectedValue={value}
+                        onValueChange={itemValue => onChange(name, itemValue)}
+                        style={[formFieldStyles.field, formFieldStyles.picker]}
+                    >
+                        <Picker.Item value="" label="Select the team..." />
+                        {items.map(({label, value}, index) => (
+                            <Picker.Item key={`${label}-${index}`} label={label} value={value} />
+                        ))}
+                    </Picker>
                 );
             default:
                 return null;
@@ -102,6 +140,14 @@ const FormField = ({name, type, label, value, onChange}: FormFieldPropsType) => 
 const formFieldStyles = StyleSheet.create({
     container: {
         marginTop: 10,
+    },
+    field: {
+        fontSize: 16,
+        color: theme.strongText,
+    },
+    picker: {
+        height: 50,
+        width: '100%',
     },
 });
 
@@ -123,17 +169,48 @@ const PROPERTY_LIST: PropertyListType = {
         showable: false,
         type: 'text',
     },
-    birthDate: {
-        label: 'Birth Date',
-        editable: true,
-        showable: true,
-        type: 'date',
-    },
     phoneNumber: {
         label: 'Phone',
         editable: true,
         showable: true,
         type: 'phone',
+        icon: 'phone',
+    },
+    birthDate: {
+        label: 'Birth Date',
+        editable: true,
+        showable: true,
+        type: 'date',
+        icon: 'gift',
+    },
+    favoriteTeam: {
+        label: 'Favorite Team',
+        editable: true,
+        showable: true,
+        type: 'picker',
+        icon: 'users',
+        items: [
+            {
+                label: 'Liverpool',
+                value: 'Liverpool',
+            },
+            {
+                label: 'Manchester United',
+                value: 'Manchester United',
+            },
+            {
+                label: 'Manchester City',
+                value: 'Manchester City',
+            },
+            {
+                label: 'Juventus',
+                value: 'Juventus',
+            },
+            {
+                label: 'Bayern Munich',
+                value: 'Bayern Munich',
+            },
+        ],
     },
 };
 
@@ -147,10 +224,25 @@ const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataProp
     const Wrapper = editMode ? Form : View;
     return useObserver(() =>(
         <Wrapper style={[editableProfileDataStyles.container, editMode ? editableProfileDataStyles.containerEdit : editableProfileDataStyles.containerShow]}>
-            {Object.entries(PROPERTY_LIST).map(([key, value]: [string, Object]) => (
-                    (editMode && value.editable) ?
-                    <FormField key={key} {...value} name={key} value={user[key]} onChange={onChange} /> :
-                    (!editMode && value.showable ? <DataItem key={key} label={value.label} value={user[key]} /> : null)
+            {Object.entries(PROPERTY_LIST).map(([key, value]: [string, Object], index) => (
+                    (editMode && value.editable) ? (
+                            <FormField
+                                key={key}
+                                {...value}
+                                name={key}
+                                value={user[key]}
+                                onChange={onChange}
+                            />
+                        ) :
+                    (!editMode && value.showable ? (
+                            <DataItem
+                                key={key}
+                                index={index}
+                                label={value.label}
+                                icon={value.icon}
+                                value={user[key]}
+                            />
+                    ) : null)
             ))}
         </Wrapper>
     ));
@@ -161,7 +253,7 @@ const editableProfileDataStyles: StyleSheetType = StyleSheet.create({
 
     },
     containerShow: {
-        marginTop: 20,
+        marginTop: 10,
         ...theme.boxShadow,
     },
     containerEdit: {

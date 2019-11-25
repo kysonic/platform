@@ -49,7 +49,12 @@ export type UserStoreType = {
     createUser: (user: UserType) => Promise<any>,
     updateUser: (id: string, user: UserType) => Promise<any>,
     upsertUser: (user: UserType) => Promise<any>,
-    getUser: (user: UserType) => Promise<any>
+    getUser: (user: UserType) => Promise<any>,
+
+    setUserName: () => void,
+    setUserBirthDate: () => void,
+    setUserPhoneNumber: () => void,
+    setUserFavoriteTeam: () => void,
 }
 
 export function UserStoreFactory(): UserStoreType {
@@ -187,6 +192,10 @@ export function UserStoreFactory(): UserStoreType {
         setUserPhoneNumber(phoneNumber: string): void {
             this.user.phoneNumber = phoneNumber;
         },
+
+        setUserFavoriteTeam(favoriteTeam: string): void {
+            this.user.favoriteTeam = favoriteTeam;
+        },
     };
 }
 
@@ -195,6 +204,10 @@ export function UserStoreDecorators() {
         user: observable,
 
         setUserFromDocRef: action,
+        setUserName: action,
+        setUserBirthDate: action,
+        setUserPhoneNumber: action,
+        setUserFavoriteTeam: action,
     };
 }
 

@@ -44,7 +44,7 @@ const listMenuStyles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     text: {
-        color: theme.listNoteColor
+        color: theme.listNoteColor,
     },
 });
 

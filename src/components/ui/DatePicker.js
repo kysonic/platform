@@ -37,7 +37,7 @@ const DatePicker = (props: DatePickerPropsType) => {
     return (
         <View style={datePickerStyles.container}>
             <TouchableOpacity onPress={() => setOpened(true)} >
-                <Text style={datePickerStyles.text}>{props.value ? props.value : props.placeholder}</Text>
+                <Text style={[datePickerStyles.text, props.textStyle]}>{props.value ? props.value : props.placeholder}</Text>
             </TouchableOpacity>
             {opened ? <DateTimePickerModal
                 {...props}

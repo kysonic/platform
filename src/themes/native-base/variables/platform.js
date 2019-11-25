@@ -188,6 +188,7 @@ export default {
   footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#F8F8F8',
   footerPaddingBottom: 0,
   footerCTAButtonColor: '#e6e6e6',
+  footerCTAActiveButtonColor: '#e01c24',
 
   // FooterTab
   tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#6b6b6b',
@@ -298,6 +299,7 @@ export default {
   inverseTextColor: '#fff',
   grayText: '#434343',
   weakText: '#949494',
+  strongText: '#595959',
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;

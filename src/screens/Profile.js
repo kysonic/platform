@@ -40,8 +40,8 @@ const ProfileScreen = ({navigation}) => {
                         <EditableProfileData editMode={editMode} user={user} onChange={onChange} />
                     </Content>
                     <Footer style={styles.footer}>
-                        <Button style={styles.button} onPress={action}>
-                            <Text style={styles.text}>{!editMode ? 'Edit' : 'Save'}</Text>
+                        <Button style={[styles.button, editMode ? styles.buttonEdit : {}]} onPress={action}>
+                            <Text style={[styles.text, editMode ? styles.textEdit : {}]}>{!editMode ? 'Edit' : 'Save'}</Text>
                         </Button>
                     </Footer>
                 </Container>
@@ -71,8 +71,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    buttonEdit: {
+        backgroundColor: theme.footerCTAActiveButtonColor,
+    },
     text: {
         color: theme.tabBarTextColor,
+    },
+    textEdit: {
+        color: theme.inverseTextColor,
     },
 });
 
