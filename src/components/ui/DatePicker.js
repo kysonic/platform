@@ -65,6 +65,10 @@ const datePickerStyles: StyleSheetType = StyleSheet.create({
     datePicker: {
         width: '100%',
     },
+    text: {
+        fontSize: 16,
+        color: theme.strongText,
+    },
 });
 
 export default DatePicker;

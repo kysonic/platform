@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
-import {View, StyleSheet, Text, Picker} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
 import {useObserver} from 'mobx-react-lite';
 import DatePicker from '@components/ui/DatePicker';
+import Picker from '@components/ui/Picker';
 import {Form, Input, Item, Icon} from 'native-base';
 import {TextInputMask} from 'react-native-masked-text';
 
@@ -56,7 +57,6 @@ const dataItemStyles:StyleSheetType = StyleSheet.create({
         fontSize: 16,
         color: theme.weakText,
         textAlign: 'center',
-        fontWeight: '100',
     },
     value: {
         fontSize: 16,
@@ -89,7 +89,6 @@ const FormField = ({name, type, label, value, items = [], onChange}: FormFieldPr
             case 'date':
                 return (
                     <DatePicker
-                        textStyle={formFieldStyles.field}
                         value={value}
                         placehodler="Birth Date"
                         format="yyyy-MM-dd"
@@ -101,7 +100,7 @@ const FormField = ({name, type, label, value, items = [], onChange}: FormFieldPr
             case 'phone':
                 return (
                     <TextInputMask
-                        style={formFieldStyles.field}
+                        style={[formFieldStyles.field, formFieldStyles.maskedText]}
                         placeholder = "+X (XXX) XXX XX XX"
                         keyboardType="numeric"
                         type="custom"
@@ -115,15 +114,14 @@ const FormField = ({name, type, label, value, items = [], onChange}: FormFieldPr
             case 'picker':
                 return (
                     <Picker
-                        selectedValue={value}
-                        onValueChange={itemValue => onChange(name, itemValue)}
+                        data={items.map((item, index) => ({...item, key: index}))}
+                        initValue={value || 'Select favorite team'}
+                        accessible={true}
+                        scrollViewAccessibilityLabel={'Scrollable options'}
+                        cancelButtonAccessibilityLabel={'Cancel Button'}
+                        onChange={option => onChange(name, option.value)}
                         style={[formFieldStyles.field, formFieldStyles.picker]}
-                    >
-                        <Picker.Item value="" label="Select the team..." />
-                        {items.map(({label, value}, index) => (
-                            <Picker.Item key={`${label}-${index}`} label={label} value={value} />
-                        ))}
-                    </Picker>
+                    />
                 );
             default:
                 return null;
@@ -148,6 +146,11 @@ const formFieldStyles = StyleSheet.create({
     picker: {
         height: 50,
         width: '100%',
+    },
+    maskedText: {
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 5,
     },
 });
 
