@@ -1,24 +1,21 @@
 // @flow
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Input} from 'native-base';
-import ModalSelector from 'react-native-modal-selector'
+import ModalSelector from 'react-native-modal-selector';
 import theme from '@themes/native-base/variables/platform';
 
 import type {StyleSheetType} from '@types/base';
 
-type DatePickerPropsType = {
-    value?: Date,
-    minimumDate?: Date,
-    maximumDate?: Date,
-    locale?: string,
-    is24Hour?: boolean,
-    minuteInterval?: number,
-    format: string,
-    value: string,
+type PickerPropsType = {
+    initValue?: mixed,
+    accessible?: boolean,
+    scrollViewAccessibilityLabel?: string,
+    cancelButtonAccessibilityLabel?: string,
+    style: StyleSheetType,
+    data: Array<mixed>,
 }
 
-const Picker = (props: DatePickerPropsType) => {
+const Picker = (props: PickerPropsType) => {
     return (
         <ModalSelector
             {...props}

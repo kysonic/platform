@@ -15,6 +15,8 @@ import type {UserType} from '@types/base';
 type DataItemPropsType = {
     label: string,
     value: string | number,
+    icon?: string,
+    index?: number,
 }
 
 const DataItem = ({label, value, icon, index}: DataItemPropsType) => {
@@ -70,8 +72,8 @@ type FormFieldPropsType = {
     type: string,
     label: string,
     value: mixed,
-    items: Array,
-    onChange: () => void,
+    items: Array<mixed>,
+    onChange: (name: string, value: mixed) => void,
 };
 
 const FormField = ({name, type, label, value, items = [], onChange}: FormFieldPropsType) => {
@@ -220,7 +222,7 @@ const PROPERTY_LIST: PropertyListType = {
 type EditableProfileDataPropsType = {
     editMode: boolean,
     user: UserType,
-    onChange: () => void,
+    onChange: (name: string, value: string) => void,
 }
 
 const EditableProfileData = ({editMode, user, onChange}: EditableProfileDataPropsType) => {

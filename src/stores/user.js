@@ -44,17 +44,17 @@ export function User() {
 export type UserStoreType = {
     user: UserType | null,
 
-    clearUser: () => void,
     setUserFromDocRef: (err: DocumentReference) => Promise<any>,
     createUser: (user: UserType) => Promise<any>,
     updateUser: (id: string, user: UserType) => Promise<any>,
     upsertUser: (user: UserType) => Promise<any>,
     getUser: (user: UserType) => Promise<any>,
 
-    setUserName: () => void,
-    setUserBirthDate: () => void,
-    setUserPhoneNumber: () => void,
-    setUserFavoriteTeam: () => void,
+    clearUser: () => void,
+    setUserName: (name: string) => void,
+    setUserBirthDate: (birthDate: Date) => void,
+    setUserPhoneNumber: (phoneNumber: string) => void,
+    setUserFavoriteTeam: (favoriteTeam: string) => void,
 }
 
 export function UserStoreFactory(): UserStoreType {
@@ -125,9 +125,9 @@ export function UserStoreFactory(): UserStoreType {
                     }
                 }
 
-                if (user.phone) {
+                if (user.phoneNumber) {
                     const querySnapshot: Query = await firestore().collection(USER_COLLECTION_NAME)
-                        .where('phone', '==', user.phone)
+                        .where('phone', '==', user.phoneNumber)
                         .get();
 
                     if (querySnapshot.size) {

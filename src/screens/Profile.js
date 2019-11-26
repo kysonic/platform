@@ -9,7 +9,15 @@ import {capitalizeFirst} from '@utils/string';
 import ProfileCover from '@components/ui/ProfileCover';
 import theme from '@themes/native-base/variables/platform';
 
-const ProfileScreen = ({navigation}) => {
+import type {StyleSheetType} from '@types/base';
+import type {_NavigationInjectedProps} from 'react-navigation';
+
+
+type ProfileScreenPropsType = {
+    navigation: _NavigationInjectedProps
+}
+
+const ProfileScreen = ({navigation} : ProfileScreenPropsType) => {
     const [editMode, setEditMode] = useState(false);
     (editMode: boolean);
 
@@ -50,7 +58,7 @@ const ProfileScreen = ({navigation}) => {
     );
 };
 
-const styles = StyleSheet.create({
+const styles: StyleSheetType = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: theme.containerBgColor,

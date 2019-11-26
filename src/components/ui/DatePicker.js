@@ -15,8 +15,10 @@ type DatePickerPropsType = {
     locale?: string,
     is24Hour?: boolean,
     minuteInterval?: number,
-    format: string,
-    value: string,
+    format?: string,
+    placeholder?: string,
+    textStyle?: StyleSheetType,
+    onChange?: Function,
 }
 
 const DatePicker = (props: DatePickerPropsType) => {
