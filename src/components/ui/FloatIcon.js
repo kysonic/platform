@@ -4,10 +4,10 @@ import {View, StyleSheet} from 'react-native';
 import {Icon} from 'native-base';
 import theme from '@themes/native-base/variables/platform';
 
-import type {StyleSheetType, ReactNodeWithoutStrings} from '@types/base';
+import type {StyleSheetType, ReactChildren} from '@types/base';
 
 type PropsType = {
-    children: ReactNodeWithoutStrings,
+    children: ReactChildren,
     style?: StyleSheetType,
     iconStyle?: StyleSheetType,
     isShown?: boolean,

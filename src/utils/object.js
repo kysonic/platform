@@ -42,3 +42,13 @@ export function assign(target: Object, ...sources: Object): Object {
     });
     return target;
 }
+
+/**
+ * Pick properties from object
+ * @param target - target object
+ * @param props - array of props to pick
+ * @returns {Object}
+ */
+export function pick(target: Object, props: Array<string>): Object {
+    return props.reduce(function(acc, prop) { acc[prop] = target[prop]; return acc; }, {});
+}

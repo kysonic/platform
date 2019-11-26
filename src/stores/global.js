@@ -9,6 +9,8 @@ export type GlobalStoreType = {
     route: string,
     statusBarEnabled: boolean,
     footerEnabled: boolean,
+
+    setRoute: (route: string) => void,
 }
 
 export function GlobalStoreFactory(): GlobalStoreType {

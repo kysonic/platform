@@ -1,20 +1,18 @@
 // @flow
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Container, Content, Icon, Spinner, Text} from 'native-base';
 import {ConnectHeader} from '@utils/navigation';
 import newsStore from '@stores/news';
 import {useObserver} from 'mobx-react-lite';
-import Cards from '@components/ui/Cards';
+import Cards from '@components/platform/Cards';
 import {StyleSheet, View} from 'react-native';
 import theme from '@themes/native-base/variables/platform';
 
 import type {StyleSheetType} from '@types/base';
 
-const NewsScreen = () => {
-    useEffect(() => {
-        newsStore.fetch();
-    }, []);
+newsStore.fetch();
 
+const NewsScreen = () => {
     return useObserver(() => {
         return (
             <Container>

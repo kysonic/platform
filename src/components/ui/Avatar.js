@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Image} from 'react-native';
 import placeholderAvatar from '@assets/img/placeholders/avatar.jpg';
-import theme from '@themes/native-base/variables/platform';
 
 import type {StyleSheetType} from '@types/base';
 

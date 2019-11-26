@@ -3,12 +3,8 @@ import {observable, action, decorate, flow} from 'mobx';
 import {uid} from '@utils/string';
 import {BaseStoreFactory, BaseStoreDecorators} from './base';
 import {assign} from '@utils/object';
-import {delay} from '@utils/promise';
 
-import notificationData from '@assets/data/notifications.json';
-
-const FEED_URL = 'https://demo2-web-qa.corebine.com/api/cards/en/1.json?q={"_type":"Corebine.Core.Feed.Corebine.Cards","types":["Corebine.Core.Card.Photo","Corebine.Core.Card.Social"],"sources":[],"tags":[],"readOnly":false}';
-
+const FEED_URL = 'https://demo2-web-dev.corebine.com/api/cards/en/1.json?q={"_type":"Corebine.Core.Feed.Corebine.Cards","types":["Corebine.Core.Card.Photo","Corebine.Core.Card.Social"],"sources":[],"tags":[],"readOnly":false}';
 
 export type NewsStoreType = {
     news: Array<any>,

@@ -15,12 +15,9 @@ type InboxScreenPropsType = {
     navigation: _NavigationInjectedProps
 }
 
+notificationStore.fetch();
+
 const InboxScreen = ({navigation}: InboxScreenPropsType) => {
-
-    useEffect(() => {
-        notificationStore.fetch();
-    }, []);
-
     return useObserver(() =>
         <Container>
             <Content contentContainerStyle={!notificationStore.notifications.length ? inboxScreenStyles.container : {}}>
