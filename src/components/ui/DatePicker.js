@@ -9,7 +9,7 @@ import theme from '@themes/native-base/variables/platform';
 import type {StyleSheetType} from '@types/base';
 
 type DatePickerPropsType = {
-    value?: Date,
+    value?: mixed | Date,
     minimumDate?: Date,
     maximumDate?: Date,
     locale?: string,
@@ -19,6 +19,16 @@ type DatePickerPropsType = {
     placeholder?: string,
     textStyle?: StyleSheetType,
     onChange?: Function,
+}
+
+function getDate(value, format) {
+    if (!value) {
+        const date = new Date();
+        date.setFullYear(1990);
+        return date;
+    }
+
+    return DateTime.fromFormat(value, format).toJSDate();
 }
 
 const DatePicker = (props: DatePickerPropsType) => {
@@ -43,7 +53,7 @@ const DatePicker = (props: DatePickerPropsType) => {
             </TouchableOpacity>
             {opened ? <DateTimePickerModal
                 {...props}
-                date={DateTime.fromFormat(props.value, props.format).toJSDate()}
+                date={getDate(props.value, props.format)}
                 headerTextIOS={props.placeholder}
                 isVisible={opened}
                 onConfirm={handleConfirm}

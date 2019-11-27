@@ -32,7 +32,7 @@ const Page = ({url}: PagePropsType) => {
         }
 
         return (
-            storeRef.current.content.map((module, index) => (<Module key={index} data={module} />))
+            storeRef.current.content.map((module, index) => (<Module key={index} index={index} data={module} />))
         );
     });
 };

@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import {View} from 'react-native';
 import moduleTypes from '@components/platform/module-types';
 
 type ModulePropsType = {
@@ -10,7 +11,7 @@ function extractModuleFromLayout (data) {
     return data.content?.[0];
 }
 
-const Module = ({data} : ModulePropsType) => {
+const Module = ({data, index} : ModulePropsType) => {
     const moduleData = extractModuleFromLayout(data);
     const ModuleComponent = moduleTypes[moduleData._type];
 
@@ -19,7 +20,9 @@ const Module = ({data} : ModulePropsType) => {
     }
 
     return (
-        <ModuleComponent {...moduleData} />
+        <View style={{marginTop: index ? 10 : 0}}>
+            <ModuleComponent {...moduleData} />
+        </View>
     );
 };
 

@@ -71,7 +71,7 @@ type FormFieldPropsType = {
     name: string,
     type: string,
     label: string,
-    value: mixed,
+    value: mixed | Date,
     items: Array<mixed>,
     onChange: (name: string, value: mixed) => void,
 };
@@ -92,7 +92,7 @@ const FormField = ({name, type, label, value, items = [], onChange}: FormFieldPr
                 return (
                     <DatePicker
                         value={value}
-                        placehodler="Birth Date"
+                        placeholder="Birth Date"
                         format="yyyy-MM-dd"
                         mode="date"
                         display="default"

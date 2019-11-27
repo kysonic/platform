@@ -24,8 +24,9 @@ const TextModule = ({text}: TextModulePropsType) => {
 
 const textModuleStyles: StyleSheetType = StyleSheet.create({
     container: {
-        marginTop: 10,
         padding: 10,
+        backgroundColor: theme.brandLight,
+        ...theme.boxShadow,
     },
 });
 

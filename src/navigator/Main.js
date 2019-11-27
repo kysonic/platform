@@ -24,7 +24,7 @@ const MainNavigator = createStackNavigator({
     defaultNavigationOptions: {
         header: () => null,
     },
-    transitionConfig: () => fadeIn(),
+/*    transitionConfig: () => fadeIn(),*/
 });
 
 const App = createAppContainer(MainNavigator);
