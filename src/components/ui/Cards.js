@@ -30,6 +30,9 @@ const cardHeaderStyles = StyleSheet.create({
         color: theme.strongText,
         fontSize: 15,
     },
+    subtitle: {
+
+    },
 });
 
 export const CardBody = ({imageSource}: any) => {

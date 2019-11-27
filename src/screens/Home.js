@@ -1,18 +1,15 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Button, Text} from 'native-base';
-import TodoList from '@components/demo/TodoList';
-import authStore from '@stores/auth';
+import {Container, Content} from 'native-base';
 import {ConnectHeader} from '@utils/navigation';
+import Page from '@components/platform/Page';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = () => {
     return (
-        <View>
-            <TodoList/>
-            <Button onPress={() => authStore.logout()}>
-                <Text>Logout</Text>
-            </Button>
-        </View>
+        <Container>
+            <Content>
+                <Page url="https://demo2-web-dev.corebine.com/en/rn/react-native-demo.json" />
+            </Content>
+        </Container>
     );
 };
 

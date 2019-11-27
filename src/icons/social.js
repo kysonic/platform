@@ -1,7 +1,7 @@
 // @flow
 import google from '@assets/img/icons/socials/google.png';
 import facebook from '@assets/img/icons/socials/facebook.png';
-import placeholder from '@assets/img/placeholders/image.jpg';
+import placeholder from '@assets/img/placeholders/image.png';
 
 type IconsType = {
     [string]: string | number

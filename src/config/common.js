@@ -7,7 +7,7 @@ export default {
         },
     },
     cloudinary: {
-        baseUrl: 'http://res.cloudinary.com/corebine-demo-sandbox/image/upload/',
+        baseUrl: 'https://cloudinary.corebine.com/corebine-demo-sandbox/image/upload/',
         cloudName: 'corebine-demo-sandbox',
     },
 };

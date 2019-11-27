@@ -94,9 +94,9 @@ type CardsPropsType = {
 const Cards = ({items}: CardsPropsType) => {
     return items.map((item: any, index: number) => {
         const CardComponent = CardsByType[item._type];
-        return (
+        return CardComponent ? (
             <CardComponent key={index} item={item} />
-        );
+        ) : null;
     });
 };
 

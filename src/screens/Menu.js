@@ -10,6 +10,8 @@ import authStore from '@stores/auth';
 import ListMenu from '@components/ui/ListMenu';
 import {useObserver} from 'mobx-react-lite';
 
+import type {_NavigationInjectedProps} from 'react-navigation';
+
 const MENU_ITEMS = [
     {
         title: 'Tickets',
@@ -41,7 +43,12 @@ const MENU_ITEMS = [
     },
 ];
 
-const MenuScreen = ({navigation}) => {
+
+type MenuScreenPropsType = {
+    navigation: _NavigationInjectedProps
+}
+
+const MenuScreen = ({navigation}: MenuScreenPropsType) => {
     return useObserver(() => (
         <Container style={menuScreenStyles.container}>
             <Content>

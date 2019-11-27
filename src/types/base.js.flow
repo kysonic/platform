@@ -30,4 +30,18 @@ export type UserType = {
     zipCode?: string,
 }
 
+export type CloudinaryImageType = {
+    _type: 'Corebine.Core.Image.Cloudinary',
+    id: string,
+    focus: 'auto' | 'ocr_text' | 'face',
+    crop: 'fill' | 'fit',
+    alt: string,
+}
+
+export type LinkType = {
+    _type: string,
+    url: string,
+    target: string,
+}
+
 
