@@ -56,7 +56,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* trashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trashTests.m; sourceTree = "<group>"; };
 		0B951C8512B21E469B64D264 /* Pods-trash-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trash-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-trash-tvOS/Pods-trash-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* trash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Corebine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Corebine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = trash/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = trash/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* trash.app */,
+				13B07F961A680F5B00A75B9A /* Corebine.app */,
 				00E356EE1AD99517003FC87E /* trashTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* trash-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* trash-tvOSTests.xctest */,
@@ -337,7 +337,7 @@
 			);
 			name = trash;
 			productName = trash;
-			productReference = 13B07F961A680F5B00A75B9A /* trash.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Corebine.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* trash-tvOS */ = {
@@ -812,8 +812,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = trash;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.corebine;
+				PRODUCT_NAME = Corebine;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -836,8 +836,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = trash;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.corebine;
+				PRODUCT_NAME = Corebine;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

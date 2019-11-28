@@ -77,3 +77,8 @@ https://medium.com/@abhisheknalwaya/how-to-clear-react-native-cache-c435c258834e
 1. Go to app /Users/anton.miroshnichenko/WebDev/CDC/platform/android/app
 2. Get SH1 keytool -list -v -alias my-key-alias -keystore ./my-upload-key.keystore
 3. Paste to Firebase console
+
+
+### Lauch screen and icons
+
+https://medium.com/better-programming/react-native-add-app-icons-and-launch-screens-onto-ios-and-android-apps-3bfbc20b7d4c
