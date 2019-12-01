@@ -21,6 +21,7 @@ Go to the src/config/ and copy local.example.js as local.js and configure your e
 
 ### Build apk (Android)
 
+0. react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 1. Find java folder /usr/libexec/java_home   
 2. cd your java home folder
 3. sudo keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000

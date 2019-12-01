@@ -11,12 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2DCD954D1E0B4F2C00145EB5 /* trashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* trashTests.m */; };
 		563B4421491451B64DCEE423 /* libPods-trash-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 268336050DA43307E56750DB /* libPods-trash-tvOS.a */; };
 		6BEA8DEF75B0FC7F58402E43 /* libPods-trashTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CCFC7CD54D00B000858E6C /* libPods-trashTests.a */; };
 		9005CB6C6A973CF907D72468 /* libPods-trash-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F25F7CA29651BB4406DD76 /* libPods-trash-tvOSTests.a */; };
 		AE2C68852383328D00316AA4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE2C68842383328D00316AA4 /* GoogleService-Info.plist */; };
+		AE8E8BF82393E0CE003A4250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		AE8E8BF92393E0F3003A4250 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		B18E9AF8725AAEC1A6581B75 /* libPods-trash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E115707031E09EC6B697C /* libPods-trash.a */; };
 /* End PBXBuildFile section */
 
@@ -441,6 +442,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE2C68852383328D00316AA4 /* GoogleService-Info.plist in Resources */,
+				AE8E8BF92393E0F3003A4250 /* LaunchScreen.xib in Resources */,
+				AE8E8BF82393E0CE003A4250 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +451,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
