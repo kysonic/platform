@@ -9,6 +9,7 @@ import ProfileScreen from '@screens/Profile';
 import NewsScreen from '@screens/News';
 import InboxScreen from '@screens/Inbox';
 import MenuScreen from '@screens/Menu';
+import NotConnectedScreen from '@screens/NotConnected';
 
 const MainNavigator = createStackNavigator({
     Preloader: {screen: PreloaderScreen},
@@ -18,6 +19,7 @@ const MainNavigator = createStackNavigator({
     News: {screen: NewsScreen},
     Inbox: {screen: InboxScreen},
     Menu: {screen: MenuScreen},
+    NotConnected: {screen: NotConnectedScreen},
 }, {
     initialRouteName: 'Preloader',
     headerMode: 'float',

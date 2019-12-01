@@ -1,13 +1,20 @@
 // @flow
 import React from 'react';
-import {StyleSheet, View, ImageBackground, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, ImageBackground, TouchableOpacity, Dimensions} from 'react-native';
 import {Icon, Text} from 'native-base';
 import Avatar from './Avatar';
 import cover from '@assets/img/covers/f-1-cover.jpeg';
 import theme from '@themes/native-base/variables/platform';
 import ProfileUserName from './ProfileUserName';
 
-const ProfileCover = ({user, onBackPress = () => {} }) => {
+import type {UserType, StyleSheetType} from '@types/base';
+
+type ProfileCoverPropsType = {
+    user: UserType,
+    onBackPress: Function,
+}
+
+const ProfileCover = ({user, onBackPress = () => {} }: ProfileCoverPropsType) => {
     return (
         <ImageBackground source={cover} style={profileCoverStyles.container}>
             <View style={profileCoverStyles.header}>
@@ -25,10 +32,11 @@ const ProfileCover = ({user, onBackPress = () => {} }) => {
     );
 };
 
-const profileCoverStyles = StyleSheet.create({
+const profileCoverStyles: StyleSheetType = StyleSheet.create({
     container: {
-        minHeight: 768 / 3,
+        minHeight: Dimensions.get('window').height / 3,
         justifyContent: 'space-between',
+        paddingBottom: 20,
     },
     group: {
         alignItems: 'center',

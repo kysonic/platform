@@ -44,7 +44,7 @@ const ProfileScreen = ({navigation} : ProfileScreenPropsType) => {
             return (
                 <Container style={styles.container}>
                     <ProfileCover user={user} onBackPress={() => navigation.goBack()} />
-                    <Content>
+                    <Content style={styles.content}>
                         <EditableProfileData editMode={editMode} user={user} onChange={onChange} />
                     </Content>
                     <Footer style={styles.footer}>
@@ -64,13 +64,14 @@ const styles: StyleSheetType = StyleSheet.create({
         backgroundColor: theme.containerBgColor,
     },
     content: {
+        flex: 1,
     },
     footer: {
         borderTopWidth: 0,
         backgroundColor: theme.containerBgColor,
         padding: 0,
         margin: 0,
-        height: Platform.OS === 'ios' ? 10 : 45,
+        maxHeight: 45,
     },
     button: {
         width: '100%',
