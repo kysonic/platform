@@ -4,6 +4,7 @@
 
 1. yarn install
 2. cd ios && pod install
+3. Go to Android Studio and run it in ./android folder
 
 ### Configuration
 
@@ -15,9 +16,11 @@ Go to the src/config/ and copy local.example.js as local.js and configure your e
 1. react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
 2. Go to the XCode
 3. Sign app with your Developer account certificate 
-4. Product => Scheme => Relase
+4. Product => Scheme => Release
 5. Product => Archive
 6. Release
+7. Select distribution Development
+8. Continue with wizard
 
 ### Build apk (Android)
 
@@ -33,3 +36,13 @@ MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore
 MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
 MYAPP_UPLOAD_STORE_PASSWORD=*****
 MYAPP_UPLOAD_KEY_PASSWORD=*****
+
+6. Create build configuration (Edit configuration) in Android Studio (top bar, android icon)
+7. Select Gradle 
+8. Tasks: assemble
+9. Gradle project -> select android folder of app
+10. Run
+
+### Launch screen and icons
+
+https://medium.com/better-programming/react-native-add-app-icons-and-launch-screens-onto-ios-and-android-apps-3bfbc20b7d4c

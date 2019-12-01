@@ -78,7 +78,16 @@ https://medium.com/@abhisheknalwaya/how-to-clear-react-native-cache-c435c258834e
 2. Get SH1 keytool -list -v -alias my-key-alias -keystore ./my-upload-key.keystore
 3. Paste to Firebase console
 
+### Android build issue
 
-### Lauch screen and icons
+cd ./android && ./gradlew clean
 
-https://medium.com/better-programming/react-native-add-app-icons-and-launch-screens-onto-ios-and-android-apps-3bfbc20b7d4c
+### Reduce bundle size
+
+1. ./android/app/build.gradle
+2. enableProguardInReleaseBuilds = true
+3. enableSeparateBuildPerCPUArchitecture = true
+
+### Error:Execution failed for task ':Application:packageDebug'. Execution of compression failed.
+
+https://stackoverflow.com/questions/47208618/execution-of-compression-failed-error-when-building-project-in-android-studio
